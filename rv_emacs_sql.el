@@ -135,20 +135,20 @@ GO
 ;; Change SQL comments like [ /* ... */ ]  into [ -- ... ]
 (defun rv_sql_f_normalize_comments ()
   (interactive)
+  (message (concat "replacing SQL comments in buffer " (buffer-name) "..."))
 
   (save-excursion
-    (message "Replacing SQL comments . . .")
+
     (goto-char (point-min))
     (while (re-search-forward "^\\([\t ]+\\)\\/\\*[\t ]+\\(.*?\\)[\t ]+\\*\\/[\t ]*$" (point-max) t)
-      (replace-match "\\1-- \\2"))
-    (message "Done !"))
+      (replace-match "\\1-- \\2")))
 
   (save-excursion
-    (message "Replacing SQL comments . . .")
     (goto-char (point-min))
     (while (re-search-forward "\\([\t ]+\\)\\/\\*[\t ]+\\(.*?\\)[\t ]+\\*\\/[\t ]*$" (point-max) t)
-      (replace-match " -- \\2"))
-    (message "Done !")))
+      (replace-match " -- \\2")))
+
+  (message (concat "replaced SQL comments in buffer " (buffer-name) " !")))
 
 
 

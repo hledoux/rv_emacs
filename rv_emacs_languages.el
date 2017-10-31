@@ -4,13 +4,13 @@
   (interactive)
   (save-excursion
     (narrow-to-region PointMin PointMax)
-    (message "Indenting region...")
+    (message (concat "indenting region in buffer " (buffer-name) "..."))
     (goto-char (point-min))
     (indent-according-to-mode)
     (while (eq (forward-line 1) 0)
       (indent-according-to-mode))
     (widen)
-    (message "Done !")))
+    (message (concat "indentation done in buffer " (buffer-name) " !"))))
 
 
 
@@ -28,7 +28,7 @@
     (if (string-match "\\.\\([a-zA-Z][a-zA-Z0-9+]*\\)$" BufferName)
         (progn
           (setq Extension (downcase (substring BufferName (match-beginning 1) (match-end 1))))
-          (message (concat "Buffer [" BufferName "] of type [" Extension "]"))
+          (message (concat "buffer [" BufferName "] of type [" Extension "]"))
           (if (string-match "^\\(pl\\|pm\\)" Extension) (rv_perl_f_insert_header_method) nil)
           (if (string-match "^\\(spd\\)$" Extension) (rv_spd_f_insert_header_method) nil)
           (if (string-match "^\\(prc\\)$" Extension) (rv_sql_f_insert_header_method) nil)
@@ -78,6 +78,7 @@
 (defun rv_language_f_re_indent_buffer ()
   (interactive)
   (save-excursion
+    (rv_common_f_remove_trailing_blanks)
     (goto-char (point-min))
     (while (re-search-forward "^ */\\*\\*" (point-max) t)
       (replace-match "/* *"))
@@ -111,6 +112,7 @@
                           " *.ksh"
                           " *.mdl"
                           " *.oid"
+                          " *.out"
                           " *.php"
                           " *.pl"
                           " *.pm"

@@ -1,3 +1,4 @@
+(add-to-list 'auto-mode-alist '("/etc/.*" . conf-unix-mode))
 (add-to-list 'auto-mode-alist '("[Mm]akefile" . makefile-mode))
 (add-to-list 'auto-mode-alist '("\\.C$" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.c$" . c++-mode))
@@ -32,6 +33,7 @@
 (add-to-list 'auto-mode-alist '("\\.pmp$" . perl-mode))
 (add-to-list 'auto-mode-alist '("\\.prc$" . sql-mode))
 (add-to-list 'auto-mode-alist '("\\.pxy$" . sql-mode))
+(add-to-list 'auto-mode-alist '("\\.service$" . conf-unix-mode))
 (add-to-list 'auto-mode-alist '("\\.sp$" . sql-mode))
 (add-to-list 'auto-mode-alist '("\\.spd$" . perl-mode))
 (add-to-list 'auto-mode-alist '("\\.spd_inc$" . perl-mode))
@@ -50,7 +52,6 @@
 (add-to-list 'auto-mode-alist '("\\.xml$" . sgml-mode))
 (add-to-list 'auto-mode-alist '("\\.y$" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.yac$" . c++-mode))
-
 
 
 (add-hook 'css-mode-hook 'rv_css_f_css_mode_hook)

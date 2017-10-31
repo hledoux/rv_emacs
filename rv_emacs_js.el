@@ -15,7 +15,7 @@
   (interactive)
 
   (save-excursion
-    (message "Removing useless blanks . . .")
+    (message (concat "removing useless blanks from buffer " (buffer-name) "..."))
 
     ;; <function> (...
     (goto-char (point-min))
@@ -93,7 +93,7 @@
       (replace-match "else {\n"))
 
 
-    (message "Done !"))
+    (message (concat "removed useless blanks from buffer " (buffer-name) " !")))
 
   (rv_language_f_indent_region (point-min) (point-max)))
 

@@ -1,20 +1,51 @@
 (load "shell")
 
 
+(setq _rv_shell_gi_buffer_seq_number 0)
+(defun rv_shell_f_allocate_shell_id ()
+  (setq _rv_shell_gi_buffer_seq_number (+ _rv_shell_gi_buffer_seq_number 1))
+  (concat "SHELL-" (format "%03d" _rv_shell_gi_buffer_seq_number) ""))
 
-(setq _rv_shell_gi_buffer_sequence_number 0)
+
 (defun rv_shell_f_create_new_shell ()
+  "open a new local shell"
   (interactive)
   (and (get-buffer "*shell*")
        (progn
          (switch-to-buffer "*shell*")
-         (rename-buffer (concat "*shell-0*"))))
+         (rename-buffer (rv_shell_f_allocate_shell_id))))
   (shell)
   (sleep-for 2)
   (shell-resync-dirs)
   (buffer-disable-undo (current-buffer))
-  (setq _rv_shell_gi_buffer_sequence_number (+ _rv_shell_gi_buffer_sequence_number 1))
-  (rename-buffer (concat "*shell-" (number-to-string _rv_shell_gi_buffer_sequence_number) "*")))
+  (setq _rv_shell_gi_buffer_seq_number (+ _rv_shell_gi_buffer_seq_number 1))
+  (rename-buffer (rv_shell_f_allocate_shell_id)))
+
+
+
+
+(defun rv_shell_f_create_new_shell_agtw (ps_agtwbe_or_agtwfe)
+  (shell)
+  (setq _rv_shell_gi_buffer_seq_number (+ _rv_shell_gi_buffer_seq_number 1))
+  (rename-buffer (concat (upcase ps_agtwbe_or_agtwfe) "-" (format "%03d" _rv_shell_gi_buffer_seq_number)))
+  (buffer-disable-undo (current-buffer))
+  (let* ((lo_proc (get-buffer-process (current-buffer)))
+         (li_pmark (process-mark lo_proc)))
+    (goto-char li_pmark)
+    (sit-for 1)
+    (comint-send-string lo_proc (concat "rssh " ps_agtwbe_or_agtwfe "\n"))))
+
+
+(defun rv_shell_f_create_new_shell_agtwbe ()
+  "open a new shell AGTWBE-xxx"
+  (interactive)
+  (rv_shell_f_create_new_shell_agtw "agtwbe"))
+
+
+(defun rv_shell_f_create_new_shell_agtwfe ()
+  "open a new shell AGTWFE-xxx"
+  (interactive)
+  (rv_shell_f_create_new_shell_agtw "agtwfe"))
 
 
 

@@ -16,5 +16,5 @@
 (set-register ?p "SPD_Arg(-ArgName => q(), -ArgType => q(), -ArgDefVal => q(), -FetchFromParam => 1, SPD_Comment('')),")
 (set-register ?s "(<(SpdStringIsBlank)()>)")
 (set-register ?t "(<(SpdBoolIsTrue)()>)")
-(set-register ?u "'use strict';")
+(set-register ?u "\"use strict\";")
 (set-register ?v "(<(SpdValueIsBlank)()>)")

@@ -7,10 +7,10 @@
   (interactive)
   (save-excursion
     (let ((OldTruncateLines truncate-lines))
-      (message "Re-loading...")
+      (message (concat "re-loading buffer " (buffer-name) "..."))
       (revert-buffer t t)
       (setq truncate-lines OldTruncateLines)
-      (message "Done."))))
+      (message (concat "re-loaded buffer " (buffer-name) " !")))))
 
 
 
@@ -23,11 +23,11 @@
 (defun rv_common_f_remove_trailing_blanks ()
   (interactive)
   (save-excursion
-    (message "Removing trailing blanks . . .")
+    (message (concat "removing trailing blanks from buffer " (buffer-name) "..."))
     (goto-char (point-min))
     (while (re-search-forward "[\t ]+$" (point-max) t)
       (replace-match ""))
-    (message "No more trailing blanks !")))
+    (message (concat "no more trailing blanks in buffer " (buffer-name) " !"))))
 
 
 (defun rv_common_f_clean_save ()
@@ -47,7 +47,7 @@
         (while (looking-at "[^][<>\n\r\t '`\"{}():;]")
           (forward-char 1))
         (let ((FileName (buffer-substring Start (point))))
-          (message (concat "Extracted file name : '" FileName "'"))
+          (message (concat "extracted file name : [" FileName "]"))
           FileName)))))
 
 
@@ -67,7 +67,7 @@
               (while (looking-at "[0-9]")
                 (forward-char 1))
               (setq LineNumber (buffer-substring here (point)))
-              (message (concat "Extracted line number : " LineNumber)))))
+              (message (concat "extracted line number : " LineNumber)))))
 
       LineNumber)))
 
@@ -161,20 +161,18 @@
 (defun rv_common_f_turn_buffer_into_single_line ()
   (interactive)
   (save-excursion
-    (message "Turning into a single line...")
 
     ;;  remove <new-lines>
     (save-excursion
       (while (re-search-forward "[\t ]*\\(\n[\t ]*\\)+" (point-max) t)
-        (replace-match " "))
-      (message "Turned into a single line !"))
+        (replace-match " ")))
 
     ;; remove special sequences
     (save-excursion
       (while (re-search-forward " [^\t\ ] " (point-max) t)
         (replace-match " ")))
 
-    (message "Turned into a single line !")))
+    (message "turned into a single line !")))
 
 
 (defun rv_common_f_sort_selection_lines ()
@@ -216,3 +214,8 @@
 
 (defun rv_common_f_find_file_hook ()
   (rv_shell_script_f_shebang_check))
+
+
+(defun rv_common_f_insert_tab ()
+  (interactive)
+  (insert "\t"))
