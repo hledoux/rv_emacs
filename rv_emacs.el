@@ -6,6 +6,11 @@
 (add-to-list 'load-path (concat _rv_emacs_cs_HOME "/tools/rv_emacs"))
 
 
+(load "js2-mode")
+(load "blank-mode")
+(load "ediff")
+
+
 ;;; language-specific functions
 (load "rv_emacs_apache")
 (load "rv_emacs_cc")
@@ -23,8 +28,6 @@
 
 
 ;;; functions common to every languages
-(load "blank-mode")
-(load "ediff")
 (load "rv_emacs_common")
 (load "rv_emacs_languages")
 

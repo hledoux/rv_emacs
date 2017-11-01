@@ -1,11 +1,10 @@
 
 (load "time")
+
 (display-time)
 (setq display-time-24hr-format t)
 
-
 (set-background-color "white")
-
 
 (custom-set-variables
  '(auto-insert-mode nil nil (autoinsert))
@@ -33,12 +32,10 @@
  '(kill-read-only-ok t)
  '(next-line-add-newlines nil)
  '(outline-regexp "^=head[1-4] " t)
- '(pc-selection-mode t nil (pc-select))
  '(require-final-newline t)
  '(sh-basic-offset 2)
  '(sh-indentation 2)
  '(show-paren-mode t nil (paren))
- '
  '(split-height-threshold nil)
  '(split-width-threshold nil)
  '(standard-indent 2)
@@ -76,17 +73,15 @@
 (set-language-environment "latin-1")
 
 
-
-
-(column-number-mode t)
-(line-number-mode t)
-
-
 (auto-compression-mode t)
+(blink-cursor-mode -1)
+(column-number-mode t)
 (global-font-lock-mode t)
-
+(line-number-mode t)
+(tool-bar-mode -1)
 
 (setq completion-ignore-case nil)
+(setq mouse-drag-copy-region t)
 (setq parse-sexp-ignore-comments nil)
 (setq show-trailing-whitespace t)
 (setq visible-bell t)
@@ -97,9 +92,7 @@
 (put 'upcase-region 'disabled nil)
 
 
-(blink-cursor-mode -1)
-(tool-bar-mode -1)
-
-
-; set title bar of the current Emacs window to something relevant
+;;; set title bar of the current Emacs window to something relevant
 (setq frame-title-format `(,(user-login-name) "@" ,(system-name) " - %m - %b - %f"))
+
+
