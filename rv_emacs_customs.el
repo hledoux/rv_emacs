@@ -48,6 +48,8 @@
 (custom-set-faces
  '(blank-space-face ((t (:background "Violet"))))
  '(blank-tab-face ((t (:background "BlueViolet"))))
+ '(ediff-fine-diff-A ((t (:background "cyan"))))
+ '(ediff-fine-diff-B ((t (:background "cyan"))))
  '(flash-paren-face-off ((t (:bold t :foreground "white" :background "red"))))
  '(flash-paren-face-on ((t nil)))
  '(flash-paren-face-region ((t (:background "yellow"))))
