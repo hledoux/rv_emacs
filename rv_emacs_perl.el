@@ -224,7 +224,6 @@ use PM_CCC::T_Utils;
 
 (defun rv_perl_f_perl_mode_hook ()
   (linum-mode t)
-  (setq linum-format "%6d")
 
   (setq parse-sexp-ignore-comments nil)
   (setq perl-brace-imaginary-offset 0)
@@ -237,7 +236,6 @@ use PM_CCC::T_Utils;
 
   (setq perl-quote-like-pairs '())
 
-  (setq show-trailing-whitespace t)
 
   (local-set-key [f1] 'perl-indent-exp)
   (define-key perl-mode-map [return] 'newline-and-indent)

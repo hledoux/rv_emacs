@@ -153,6 +153,6 @@ GO
 
 
 (defun rv_sql_f_sql_mode_hook ()
-  (setq show-trailing-whitespace t)
+  (linum-mode t)
   (font-lock-mode t))
 

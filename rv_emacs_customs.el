@@ -82,9 +82,11 @@
 (tool-bar-mode -1)
 
 (setq completion-ignore-case nil)
+(setq linum-format "%6d")
 (setq mouse-drag-copy-region t)
 (setq parse-sexp-ignore-comments nil)
 (setq show-trailing-whitespace t)
+(setq truncate-lines nil)
 (setq visible-bell t)
 
 (put 'downcase-region 'disabled nil)

@@ -102,10 +102,8 @@
 
 (defun rv_js_f_js_mode_hook ()
   (linum-mode t)
-  (setq linum-format "%6d")
 
   (setq js-indent-level 2)
-  (setq show-trailing-whitespace t)
 
   (local-set-key (kbd "RET") 'newline-and-indent)
   (local-set-key [f1] 'rv_js_f_indent_sexp)
@@ -121,10 +119,8 @@
 
 (defun rv_js_f_js2_mode_hook ()
   (linum-mode t)
-  (setq linum-format "%6d")
 
   (setq js2-basic-offset 2)
-  (setq show-trailing-whitespace t)
 
   ;; (local-set-key (kbd "RET") 'newline-and-indent)
   (local-set-key [f1] 'rv_js_f_indent_sexp)
