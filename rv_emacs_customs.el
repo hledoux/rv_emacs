@@ -1,10 +1,11 @@
 
 (load "time")
-
 (display-time)
 (setq display-time-24hr-format t)
 
+
 (set-background-color "white")
+
 
 (custom-set-variables
  '(auto-insert-mode nil nil (autoinsert))

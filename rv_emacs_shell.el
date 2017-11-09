@@ -74,7 +74,7 @@
 
 (defun rv_shell_f_command_apache_rotate_logs ()
   (interactive)
-  (insert "apachectl.sh fast_rotate_logs"))
+  (insert "ccc_daemon.pl -v apache rotate"))
 
 
 (defun rv_shell_f_shell_mode_hook ()
