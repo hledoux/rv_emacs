@@ -77,6 +77,12 @@
   (insert "ccc_daemon.pl -v apache rotate"))
 
 
+(defun rv_shell_f_kill_up_to_buffer_start ()
+  (interactive)
+  (save-excursion
+    (kill-region (point-min) (point))))
+
+
 (defun rv_shell_f_shell_mode_hook ()
   (setq shell-dirstack-query "dirs -l")
 
@@ -90,4 +96,5 @@
   (define-key shell-mode-map [(meta return)] 'shell-resync-dirs)
   (define-key shell-mode-map [(meta p)] 'comint-previous-matching-input-from-input)
   (define-key shell-mode-map [(meta n)] 'comint-next-matching-input-from-input)
+  (define-key shell-mode-map [(control shift k)] `rv_shell_f_kill_up_to_buffer_start)
   (define-key shell-mode-map [(control meta l)] nil))
