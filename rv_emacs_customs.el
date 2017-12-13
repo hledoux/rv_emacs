@@ -14,7 +14,7 @@
  '(backward-delete-char-untabify-method (quote hungry))
  '(blink-matching-paren t)
  '(blink-matching-paren-on-screen t)
- '(case-fold-search t)
+ '(case-fold-search nil)
  '(case-replace t)
  '(completion-on-separator-character t)
  '(css-indent-offset 2)

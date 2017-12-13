@@ -92,7 +92,11 @@
   (setq comint-scroll-show-maximum-output t) ; scroll to show max possible output
   (setq comint-scroll-to-bottom-on-input t)  ; always insert at the bottom
   (setq comint-scroll-to-bottom-on-output nil) ; always add output at the bottom
-                                        ; (ansi-color-for-comint-mode-on)
+
+  (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
+
+  (ansi-color-for-comint-mode-on)
+
   (define-key shell-mode-map [(meta return)] 'shell-resync-dirs)
   (define-key shell-mode-map [(meta p)] 'comint-previous-matching-input-from-input)
   (define-key shell-mode-map [(meta n)] 'comint-next-matching-input-from-input)

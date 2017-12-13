@@ -35,8 +35,10 @@
 ;;; mode hooks
 (load "rv_emacs_hooks")
 
+
 ;;; customizations: fonts, colors, etc.
 (load "rv_emacs_customs")
+
 
 ;;; keyborard short-cuts and registers
 (load "rv_emacs_keyboard")
