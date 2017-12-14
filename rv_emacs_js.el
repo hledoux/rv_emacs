@@ -15,7 +15,7 @@
   (interactive)
 
   (save-excursion
-    (message (concat "removing useless blanks from buffer " (buffer-name) "..."))
+    (message (concat "reformatting JS code in buffer " (buffer-name) "..."))
 
     ;; <function> (...
     (goto-char (point-min))
@@ -25,12 +25,12 @@
     ;; (... function (...
     (goto-char (point-min))
     (while (re-search-forward "([ \t\n]+\\<function[ \t]*(" (point-max) t)
-      (replace-match "(function("))
+      (replace-match "(function ("))
 
     ;; ,... function (...
     (goto-char (point-min))
     (while (re-search-forward ",[ \t\n]*\\<function[ \t]*(" (point-max) t)
-      (replace-match ", function("))
+      (replace-match ", function ("))
 
     ;; return... (
     (goto-char (point-min))
@@ -92,10 +92,9 @@
     (while (re-search-forward "\\<else[ \t\n]+{[ \t\n]*" (point-max) t)
       (replace-match "else {\n"))
 
+    (rv_language_f_indent_region (point-min) (point-max))
 
-    (message (concat "removed useless blanks from buffer " (buffer-name) " !")))
-
-  (rv_language_f_indent_region (point-min) (point-max)))
+    (message (concat "reformatted JS code in buffer " (buffer-name) " !"))))
 
 
 
@@ -110,6 +109,8 @@
 
   (modify-syntax-entry ?_ "w")
   (modify-syntax-entry ?$ "w")
+
+  ;; support of back-quotes
   (modify-syntax-entry ?` "\"")
 
   (font-lock-mode t))

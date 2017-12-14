@@ -154,5 +154,9 @@ GO
 
 (defun rv_sql_f_sql_mode_hook ()
   (linum-mode t)
+
+  ;; consider underscore as any standard letter in a word
+  (modify-syntax-entry ?_ "w")
+
   (font-lock-mode t))
 
