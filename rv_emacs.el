@@ -10,12 +10,15 @@
 (load "blank-mode")
 (load "ediff")
 
+(load "rv_emacs_faces")
+
 
 ;;; language-specific functions
 (load "rv_emacs_apache")
 (load "rv_emacs_cc")
 (load "rv_emacs_css")
 (load "rv_emacs_js")
+(load "rv_emacs_log")
 (load "rv_emacs_perl")
 (load "rv_emacs_php")
 (load "rv_emacs_shell")

@@ -48,15 +48,6 @@
   (rv_shell_f_create_new_shell_agtw "agtwfe"))
 
 
-(defvar font-lock-shell-mode-context-face 'font-lock-shell-mode-context-face "font-lock-shell-mode-context-face")
-(defvar font-lock-shell-mode-error-face 'font-lock-shell-mode-error-face "font-lock-shell-mode-error-face")
-(defvar font-lock-shell-mode-separ-face 'font-lock-shell-mode-separ-face "font-lock-shell-mode-separ-face")
-
-
-(defface font-lock-shell-mode-context-face '((t (:weight bold :foreground "green" :background "gray20"))) "shell-mode: new prompt" :group 'font-lock-faces)
-(defface font-lock-shell-mode-error-face '((t (:foreground "red"))) "shell-mode: error" :group 'font-lock-faces)
-(defface font-lock-shell-mode-separ-face '((t (:slant italic :foreground "Blue" :background "Gray90"))) "shell-mode: separator" :group 'font-lock-faces)
-
 
 (defun rv_shell_f_configure_fontify ()
   (interactive)
@@ -71,13 +62,20 @@
             ("[ \t]\\([-+]+[a-zA-Z0-9][-a-zA-Z0-9_]*\\)" 1 font-lock-keyword-face)
 
             ;; !!! ERROR | WARNING | ...
-            ("\\!\\!\\![ \t]*[A-Z]+[ \t]*\\!\\!\\!.*" . font-lock-shell-mode-error-face)
+            ("\\!\\!\\![ \t]*[A-Z]+[ \t]*\\!\\!\\!.*" . font-lock-log-error-face)
+
+
+            ;; ==> ...
+            ;; <== ...
+            ("[ \t]==>[ \t].*" . font-lock-log-in-out-face)
+            ("[ \t]<==[ \t].*" . font-lock-log-in-out-face)
+
 
             ;; separation line
-            ("\\(=====\\|\\*\\*\\*\\*\\*\\|#####\\).*" . font-lock-shell-mode-separ-face)
+            ("\\(=====\\|\\*\\*\\*\\*\\*\\|#####\\).*" . font-lock-log-separ-face)
 
             ;; generix Unix error
-            ("^[ \t]*[a-z][-a-zA-Z0-9_]+:.*" . font-lock-shell-mode-error-face)))))
+            ("^[ \t]*[a-z][-a-zA-Z0-9_]+:.*" . font-lock-log-error-face)))))
 
 
 (rv_shell_f_configure_fontify)
