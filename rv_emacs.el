@@ -1,7 +1,7 @@
 
 (setq _rv_emacs_cs_HOME (getenv "HOME"))
 
-(add-to-list 'load-path (concat "/XMID_LDEV_DIR/emacs-23.3/our_lib_distr/emacs/lisp"))
+(add-to-list 'load-path (concat "/XMID_LDEV_DIR/emacs-25.1/our_lib_distr/emacs/lisp"))
 (add-to-list 'load-path (concat _rv_emacs_cs_HOME "/tools/rv_emacs/extensions"))
 (add-to-list 'load-path (concat _rv_emacs_cs_HOME "/tools/rv_emacs"))
 
@@ -35,8 +35,10 @@
 ;;; mode hooks
 (load "rv_emacs_hooks")
 
+
 ;;; customizations: fonts, colors, etc.
 (load "rv_emacs_customs")
+
 
 ;;; keyborard short-cuts and registers
 (load "rv_emacs_keyboard")

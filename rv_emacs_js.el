@@ -15,7 +15,7 @@
   (interactive)
 
   (save-excursion
-    (message (concat "removing useless blanks from buffer " (buffer-name) "..."))
+    (message (concat "reformatting JS code in buffer " (buffer-name) "..."))
 
     ;; <function> (...
     (goto-char (point-min))
@@ -25,12 +25,12 @@
     ;; (... function (...
     (goto-char (point-min))
     (while (re-search-forward "([ \t\n]+\\<function[ \t]*(" (point-max) t)
-      (replace-match "(function("))
+      (replace-match "(function ("))
 
     ;; ,... function (...
     (goto-char (point-min))
     (while (re-search-forward ",[ \t\n]*\\<function[ \t]*(" (point-max) t)
-      (replace-match ", function("))
+      (replace-match ", function ("))
 
     ;; return... (
     (goto-char (point-min))
@@ -92,26 +92,25 @@
     (while (re-search-forward "\\<else[ \t\n]+{[ \t\n]*" (point-max) t)
       (replace-match "else {\n"))
 
+    (rv_language_f_indent_region (point-min) (point-max))
 
-    (message (concat "removed useless blanks from buffer " (buffer-name) " !")))
-
-  (rv_language_f_indent_region (point-min) (point-max)))
+    (message (concat "reformatted JS code in buffer " (buffer-name) " !"))))
 
 
 
 
 (defun rv_js_f_js_mode_hook ()
   (linum-mode t)
-  (setq linum-format "%6d")
 
   (setq js-indent-level 2)
-  (setq show-trailing-whitespace t)
 
   (local-set-key (kbd "RET") 'newline-and-indent)
   (local-set-key [f1] 'rv_js_f_indent_sexp)
 
   (modify-syntax-entry ?_ "w")
   (modify-syntax-entry ?$ "w")
+
+  ;; support of back-quotes
   (modify-syntax-entry ?` "\"")
 
   (font-lock-mode t))
@@ -121,10 +120,8 @@
 
 (defun rv_js_f_js2_mode_hook ()
   (linum-mode t)
-  (setq linum-format "%6d")
 
   (setq js2-basic-offset 2)
-  (setq show-trailing-whitespace t)
 
   ;; (local-set-key (kbd "RET") 'newline-and-indent)
   (local-set-key [f1] 'rv_js_f_indent_sexp)

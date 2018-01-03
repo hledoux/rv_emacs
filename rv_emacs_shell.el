@@ -74,7 +74,13 @@
 
 (defun rv_shell_f_command_apache_rotate_logs ()
   (interactive)
-  (insert "apachectl.sh fast_rotate_logs"))
+  (insert "ccc_daemon.pl -v apache rotate"))
+
+
+(defun rv_shell_f_kill_up_to_buffer_start ()
+  (interactive)
+  (save-excursion
+    (kill-region (point-min) (point))))
 
 
 (defun rv_shell_f_shell_mode_hook ()
@@ -86,8 +92,13 @@
   (setq comint-scroll-show-maximum-output t) ; scroll to show max possible output
   (setq comint-scroll-to-bottom-on-input t)  ; always insert at the bottom
   (setq comint-scroll-to-bottom-on-output nil) ; always add output at the bottom
-                                        ; (ansi-color-for-comint-mode-on)
+
+  (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
+
+  (ansi-color-for-comint-mode-on)
+
   (define-key shell-mode-map [(meta return)] 'shell-resync-dirs)
   (define-key shell-mode-map [(meta p)] 'comint-previous-matching-input-from-input)
   (define-key shell-mode-map [(meta n)] 'comint-next-matching-input-from-input)
+  (define-key shell-mode-map [(control shift k)] `rv_shell_f_kill_up_to_buffer_start)
   (define-key shell-mode-map [(control meta l)] nil))

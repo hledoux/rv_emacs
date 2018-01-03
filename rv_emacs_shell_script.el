@@ -15,7 +15,6 @@
                (funcall ls_shell_mode))
 
           (linum-mode t)
-          (setq linum-format "%6d")
 
           ;; Extend "word" definition...
           (modify-syntax-entry ?_ "w")

@@ -119,6 +119,7 @@
                           " *.pod"
                           " *.prc"
                           " *.pxy"
+                          " *.service"
                           " *.sh"
                           " *.spd"
                           " *.sql"

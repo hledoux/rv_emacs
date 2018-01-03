@@ -1,10 +1,11 @@
 
 (load "time")
-
 (display-time)
 (setq display-time-24hr-format t)
 
+
 (set-background-color "white")
+
 
 (custom-set-variables
  '(auto-insert-mode nil nil (autoinsert))
@@ -49,24 +50,28 @@
    '(blank-space-face ((t (:background "Violet"))))
    '(blank-tab-face ((t (:background "BlueViolet"))))
    '(default ((t (:background "white" :foreground "black"))))
+   '(ediff-current-diff-A ((t (:background "yellow"))))
+   '(ediff-current-diff-B ((t (:background "yellow"))))
+   '(ediff-fine-diff-A ((t (:background "cyan"))))
+   '(ediff-fine-diff-B ((t (:background "cyan"))))
    '(flash-paren-face-off ((t (:bold t :foreground "white" :background "red"))))
    '(flash-paren-face-on ((t nil)))
    '(flash-paren-face-region ((t (:background "yellow"))))
-   '(font-lock-builtin-face ((((class color) (background light)) (:bold t :foreground "Red"))))
-   '(font-lock-comment-face ((((class color) (background light)) (:italic t :foreground "Blue" :background "Gray90"))))
-   '(font-lock-constant-face ((((class color) (background light)) (:bold t :foreground "red" :background "yellow"))))
-   '(font-lock-keyword-face ((((class color) (background light)) (:bold t :foreground "Purple"))))
-   '(font-lock-string-face ((((class color) (background light)) (:bold t :foreground "#000000FFF" :background "#F00F00FFF"))))
-   '(font-lock-type-face ((((class color) (background light)) (:bold t :foreground "white" :background "red"))))
-   '(font-lock-variable-name-face ((((class color) (background light)) (:bold t))))
-   '(font-lock-warning-face ((((class color) (background light)) (:bold t :foreground "#000500000" :background "#E00FFFE00"))))
+   '(font-lock-builtin-face ((t (:bold t :foreground "Red"))))
+   '(font-lock-comment-face ((t (:italic t :foreground "Blue" :background "Gray90"))))
+   '(font-lock-constant-face ((t (:bold t :foreground "red" :background "yellow"))))
+   '(font-lock-keyword-face ((t (:bold t :foreground "Purple"))))
+   '(font-lock-string-face ((t (:bold t :foreground "#000000FFF" :background "#F00F00FFF"))))
+   '(font-lock-type-face ((t (:bold t :foreground "white" :background "red"))))
+   '(font-lock-variable-name-face ((t (:bold t))))
+   '(font-lock-warning-face ((t (:bold t :foreground "#000500000" :background "#E00FFFE00"))))
    '(linum ((t (:background "blue" :foreground "yellow" :slant normal :weight normal))))
    '(mode-line ((t (:background "red" :foreground "white" :weight bold))))
    '(mode-line-inactive ((default (:inherit mode-line)) (((class color) (min-colors 88) (background light)) (:background "grey30" :foreground "white" :box (:line-width -1 :color "grey75") :weight light))))
    '(region ((t (:background "Gray80"))))
-   '(sh-heredoc ((((class color) (background light)) (:foreground "blue" :weight bold))))
-   '(trailing-whitespace ((((class color) (background light)) (:background "Violet"))))
-   '(vhdl-font-lock-reserved-words-face ((((class color) (background light)) (:bold t :italic t :foreground "Orange"))))
+   '(sh-heredoc ((t (:foreground "blue" :weight bold))))
+   '(trailing-whitespace ((t (:background "Violet"))))
+   '(vhdl-font-lock-reserved-words-face ((t (:bold t :italic t :foreground "Orange"))))
    '(widget-field ((((class grayscale color) (background light)) (:background "gray90"))))
    '(widget-field-face ((((class grayscale color) (background light)) (:background "gray90"))) t)))
 
@@ -97,7 +102,7 @@
    '(trailing-whitespace ((t (:background "BlueViolet"))))))
 
 
-; (rv_emacs_custom_faces_black_on_white)
+;;; (rv_emacs_custom_faces_black_on_white)
 (rv_emacs_custom_faces_white_on_black)
 
 (set-language-environment "latin-1")
@@ -111,9 +116,11 @@
 (tool-bar-mode -1)
 
 (setq completion-ignore-case nil)
+(setq linum-format "%6d")
 (setq mouse-drag-copy-region t)
 (setq parse-sexp-ignore-comments nil)
 (setq show-trailing-whitespace t)
+(setq truncate-lines nil)
 (setq visible-bell t)
 
 (put 'downcase-region 'disabled nil)

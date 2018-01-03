@@ -1,6 +1,5 @@
 ;;; Helpers for code edition
 
-(setq truncate-lines nil)
 
 
 (defun rv_common_f_reload_buffer ()
@@ -82,18 +81,6 @@
         (goto-line (string-to-number LineNumber)))))
 
 
-
-(defun rv_common_f_replace_word (OldWord NewWord)
-  (save-excursion
-    (let ((OldCaseReplace case-replace)
-          (OldCaseFoldSearch case-fold-search))
-      (setq case-replace nil)
-      (setq case-fold-search nil)
-      (replace-regexp (concat "\\<" OldWord "\\>") NewWord)
-      (setq case-replace OldCaseReplace)
-      (setq case-fold-search OldCaseFoldSearch))))
-
-
 (defun rv_common_f_goto_relative_line ()
   (interactive)
   (goto-line (- (+ (current-line) (string-to-number (read-string "Relative line from point : "))) 2)))
@@ -152,8 +139,7 @@
 
 (defun rv_common_f_goto_next_error ()
   (interactive)
-  (next-error)
-  (recenter))
+  (next-error))
 
 
 
