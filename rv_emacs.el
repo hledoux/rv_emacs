@@ -6,7 +6,7 @@
 (add-to-list 'load-path (concat _rv_emacs_cs_HOME "/tools/rv_emacs"))
 
 
-;; (load "js2-mode")
+(load "js2-mode")
 (load "blank-mode")
 (load "ediff")
 
