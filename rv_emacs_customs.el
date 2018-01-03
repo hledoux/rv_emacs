@@ -85,6 +85,8 @@
   (custom-set-faces
    '(blank-space-face ((t (:background "Violet"))))
    '(blank-tab-face ((t (:background "BlueViolet"))))
+   '(comint-highlight-input ((t (:weight bold :foreground "#58ACFA"))))
+   '(comint-highlight-prompt ((t (:foreground "cyan"))))
    '(default ((t (:background "black" :foreground "white"))))
    '(ediff-current-diff-A ((t (:background "yellow" :foreground "black"))))
    '(ediff-current-diff-B ((t (:background "yellow" :foreground "black"))))
