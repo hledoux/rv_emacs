@@ -48,21 +48,36 @@
   (rv_shell_f_create_new_shell_agtw "agtwfe"))
 
 
+(defvar font-lock-shell-mode-context-face 'font-lock-shell-mode-context-face "font-lock-shell-mode-context-face")
+(defvar font-lock-shell-mode-error-face 'font-lock-shell-mode-error-face "font-lock-shell-mode-error-face")
+(defvar font-lock-shell-mode-separ-face 'font-lock-shell-mode-separ-face "font-lock-shell-mode-separ-face")
+
+
+(defface font-lock-shell-mode-context-face '((t (:weight bold :foreground "green" :background "gray20"))) "shell-mode: new prompt" :group 'font-lock-faces)
+(defface font-lock-shell-mode-error-face '((t (:foreground "red"))) "shell-mode: error" :group 'font-lock-faces)
+(defface font-lock-shell-mode-separ-face '((t (:slant italic :foreground "Blue" :background "Gray90"))) "shell-mode: separator" :group 'font-lock-faces)
 
 
 (defun rv_shell_f_configure_fontify ()
   (interactive)
   (save-excursion
-    (setq shell-font-lock-keywords
-          (cons '("[ \t]\\([+-][-a-zA-Z0-9_]+\\)"
-                  (1 font-lock-keyword-face))
-                shell-font-lock-keywords))
 
     (setq shell-font-lock-keywords
-          (cons '("[ \t]\\([+-][-a-zA-Z0-9_]+\\)=\\([^ \t\n]+\\)"
-                  (1 font-lock-keyword-face)
-                  (2 font-lock-string-face))
-                shell-font-lock-keywords))))
+          '(
+            ;; PERSO: [/HOME_LDEV/hledoux/xdev]
+            ("^[ \t]*[A-Z]+:[ \t]*\\[.*" . font-lock-shell-mode-context-face)
+
+            ;; command line options
+            ("[ \t]\\([-+]+[a-zA-Z0-9][-a-zA-Z0-9_]*\\)" 1 font-lock-keyword-face)
+
+            ;; !!! ERROR | WARNING | ...
+            ("\\!\\!\\![ \t]*[A-Z]+[ \t]*\\!\\!\\!.*" . font-lock-shell-mode-error-face)
+
+            ;; separation line
+            ("\\(=====\\|\\*\\*\\*\\*\\*\\|#####\\).*" . font-lock-shell-mode-separ-face)
+
+            ;; generix Unix error
+            ("^[ \t]*[a-z][-a-zA-Z0-9_]+:.*" . font-lock-shell-mode-error-face)))))
 
 
 (rv_shell_f_configure_fontify)
@@ -101,4 +116,6 @@
   (define-key shell-mode-map [(meta p)] 'comint-previous-matching-input-from-input)
   (define-key shell-mode-map [(meta n)] 'comint-next-matching-input-from-input)
   (define-key shell-mode-map [(control shift k)] `rv_shell_f_kill_up_to_buffer_start)
-  (define-key shell-mode-map [(control meta l)] nil))
+  (define-key shell-mode-map [(control meta l)] nil)
+
+  (font-lock-mode t))
