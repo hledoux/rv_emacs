@@ -45,3 +45,9 @@
 ;;; keyborard short-cuts and registers
 (load "rv_emacs_keyboard")
 (load "rv_emacs_registers")
+
+
+;;; choose a dark or light theme
+;;; (rv_emacs_custom_faces_light)
+(rv_emacs_custom_faces_dark)
+
