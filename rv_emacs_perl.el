@@ -162,59 +162,57 @@ use PM_CCC::T_Utils;
   (interactive)
   (save-excursion
 
+    ;; TODO
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("##TODO##.*" . font-lock-todo-face))
+
     ;; method / function calls
-    (setq perl-font-lock-keywords-2
-          (cons '("->\\([A-Za-z0-9_:]+\\)[	 \n\r]*(" (1 font-lock-function-name-face)) perl-font-lock-keywords-2))
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("->\\([A-Za-z0-9_:]+\\)[	 \n\r]*(" (1 font-lock-function-name-face)))
 
     ;; Use of packages
-    (setq perl-font-lock-keywords-2
-          (cons '("^[\t ]*\\(use\\|no\\)[\t\n ]+\\([a-zA-Z0-9_:]+\\([\t\n ]*()\\)?\\)" (2 font-lock-type-face)) perl-font-lock-keywords-2))
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("^[\t ]*\\(use\\|no\\)[\t\n ]+\\([a-zA-Z0-9_:]+\\([\t\n ]*()\\)?\\)" (2 font-lock-type-face)))
 
-    (setq perl-font-lock-keywords-2
-          (cons '("\\<\\([a-zA-Z0-9_:]+\\)->" (1 font-lock-type-face)) perl-font-lock-keywords-2))
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("\\<\\([a-zA-Z0-9_:]+\\)->" (1 font-lock-type-face)))
 
-    (setq perl-font-lock-keywords-2
-          (cons '("\\<\\([a-zA-Z0-9_:]+\\)::\\([a-zA-Z0-9_]+\\)[\t\n ]*(" (1 font-lock-type-face) (2 font-lock-function-name-face)) perl-font-lock-keywords-2))
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("\\<\\([a-zA-Z0-9_:]+\\)::\\([a-zA-Z0-9_]+\\)[\t\n ]*(" (1 font-lock-type-face) (2 font-lock-function-name-face)))
 
 
     ;; Fields
-    (setq perl-font-lock-keywords-2
-          (cons '("{\\([A-Za-z0-9_]+\\)}"  (1 font-lock-builtin-face)) perl-font-lock-keywords-2))
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("{\\([A-Za-z0-9_]+\\)}" (1 font-lock-builtin-face)))
 
-    (setq perl-font-lock-keywords-2
-          (cons '("\\([-A-Za-z0-9_:]+\\)[ \t]*=>"  (1 font-lock-builtin-face)) perl-font-lock-keywords-2))
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("\\([-A-Za-z0-9_:]+\\)[ \t]*=>" (1 font-lock-builtin-face)))
 
     ;; Contants
-    (setq perl-font-lock-keywords-2
-          (cons '("[\\$]?\\<[cC][a-z]?_[A-Za-z0-9_]+\\([\t\n ]*()\\)?" . font-lock-constant-face) perl-font-lock-keywords-2))
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("[\\$]?\\<[cC][a-z]?_[A-Za-z0-9_]+\\([\t\n ]*()\\)?" . font-lock-constant-face))
 
-    (setq perl-font-lock-keywords-2
-          (cons '("[-+]?\\<[\\.0-9_]+\\>" . font-lock-constant-face) perl-font-lock-keywords-2))
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("[-+]?\\<[\\.0-9_]+\\>" . font-lock-constant-face))
 
     ;; DDL / SPD / WEB extensions
-    (setq perl-font-lock-keywords-2
-          (cons '("\\<\\(WEB\\|DDL\\|SPD\\)_[A-Za-z0-9_]+" . font-lock-warning-face) perl-font-lock-keywords-2))
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("\\<_?\\(WEB\\|DDL\\|SPD\\)_[A-Za-z0-9_]+" . font-lock-perl-spd-name-face))
 
-    (setq perl-font-lock-keywords-2
-          (cons '("\\<_\\(WEB\\|DDL\\|SPD\\)_[A-Za-z0-9_]+" . font-lock-constant-face) perl-font-lock-keywords-2))
-
-    (setq perl-font-lock-keywords-2
-          (cons '("\\<GEN_[A-Za-z0-9_]+" . font-lock-keyword-face) perl-font-lock-keywords-2))
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("\\<GEN_[A-Za-z0-9_]+" . font-lock-keyword-face))
 
     ;; Perl extended keywords
-    (setq perl-font-lock-keywords-2
-          (cons '("\\<\\(given\\|when\\|not\\|like\\|pos\\|substr\\|qw\\|q\\|qq\\|qx\\|qr\\|and\\|or\\|xor\\|reverse\\|quotemeta\\|values\\|keys\\|sort\\|bless\\|caller\\|eq\\|ne\\|lt\\|le\\|gt\\|ge\\|cmp\\|ref\\|push\\|pop\\|map\\|grep\\|join\\|split\\|length\\|scalar\\|my\\|local\\|each\\|shift\\|unshift\\|our\\|delete\\|undef\\|defined\\|exists\\|chomp\\|chop\\|print\\|printf\\|sprintf\\|printflush\\|open\\|close\\|flush\\|STDERR\\|STDOUT\\|warn\\|die\\|f_\\w+\\)\\>" . font-lock-keyword-face) perl-font-lock-keywords-2))
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("\\<\\(given\\|when\\|not\\|like\\|pos\\|substr\\|qw\\|q\\|qq\\|qx\\|qr\\|and\\|or\\|xor\\|reverse\\|quotemeta\\|values\\|keys\\|sort\\|bless\\|caller\\|eq\\|ne\\|lt\\|le\\|gt\\|ge\\|cmp\\|ref\\|push\\|pop\\|map\\|grep\\|join\\|split\\|length\\|scalar\\|my\\|local\\|each\\|shift\\|unshift\\|our\\|delete\\|undef\\|defined\\|exists\\|chomp\\|chop\\|print\\|printf\\|sprintf\\|printflush\\|open\\|close\\|flush\\|STDERR\\|STDOUT\\|warn\\|die\\|f_\\w+\\)\\>" . font-lock-keyword-face))
 
     ;; SQL comments
-    (setq perl-font-lock-keywords-2
-          (cons '("[\t ]+\\(--[\t ]+[^\n]*\\)$" (1 font-lock-comment-face)) perl-font-lock-keywords-2))
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("[\t ]+\\(--[\t ]+[^\n]*\\)$" (1 font-lock-comment-face)))
 
     ;; References
-    (setq perl-font-lock-keywords-2
-          (cons '("\\(\\[\\[:.+?:\\]\\]\\)"  (1 font-lock-type-face)) perl-font-lock-keywords-2))
-
-    ;; (setq perl-font-lock-keywords-2 nil)
-    ))
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("\\(\\[\\[:.+?:\\]\\]\\)" (1 font-lock-type-face)))))
 
 
 (rv_perl_f_configure_fontify)
