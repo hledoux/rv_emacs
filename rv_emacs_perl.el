@@ -162,13 +162,13 @@ use PM_CCC::T_Utils;
   (interactive)
   (save-excursion
 
-    ;; TODO
-    (add-to-list 'perl-font-lock-keywords-2
-                 '("##TODO##.*" . font-lock-todo-face))
-
     ;; method / function calls
     (add-to-list 'perl-font-lock-keywords-2
                  '("->\\([A-Za-z0-9_:]+\\)[	 \n\r]*(" (1 font-lock-function-name-face)))
+
+    ;; function names
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("\\<_?[fm]_\\w+\\>" . font-lock-function-name-face))
 
     ;; Use of packages
     (add-to-list 'perl-font-lock-keywords-2
@@ -188,6 +188,13 @@ use PM_CCC::T_Utils;
     (add-to-list 'perl-font-lock-keywords-2
                  '("\\([-A-Za-z0-9_:]+\\)[ \t]*=>" (1 font-lock-builtin-face)))
 
+    ;; Label:
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("^[ \t]*\\<\\([A-Za-z]\\w*[ \t]*:\\)" (1 font-lock-perl-label-face)))
+
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("\\<\\(last\\|next\\|redo\\)[ \t]*\\<\\([A-Za-z]\\w*\\)\\>" (1 font-lock-keyword-face) (2 font-lock-perl-label-face)))
+
     ;; Contants
     (add-to-list 'perl-font-lock-keywords-2
                  '("[\\$]?\\<[cC][a-z]?_[A-Za-z0-9_]+\\([\t\n ]*()\\)?" . font-lock-constant-face))
@@ -195,16 +202,18 @@ use PM_CCC::T_Utils;
     (add-to-list 'perl-font-lock-keywords-2
                  '("[-+]?\\<[\\.0-9_]+\\>" . font-lock-constant-face))
 
-    ;; DDL / SPD / WEB extensions
+
+    ;; DDL / SPD extensions
     (add-to-list 'perl-font-lock-keywords-2
-                 '("\\<_?\\(WEB\\|DDL\\|SPD\\)_[A-Za-z0-9_]+" . font-lock-perl-spd-name-face))
+                 '("\\<_?\\(DDL\\|SPD\\)_[A-Za-z0-9_]+" . font-lock-perl-spd-name-face))
 
     (add-to-list 'perl-font-lock-keywords-2
                  '("\\<GEN_[A-Za-z0-9_]+" . font-lock-keyword-face))
 
+
     ;; Perl extended keywords
     (add-to-list 'perl-font-lock-keywords-2
-                 '("\\<\\(given\\|when\\|not\\|like\\|pos\\|substr\\|qw\\|q\\|qq\\|qx\\|qr\\|and\\|or\\|xor\\|reverse\\|quotemeta\\|values\\|keys\\|sort\\|bless\\|caller\\|eq\\|ne\\|lt\\|le\\|gt\\|ge\\|cmp\\|ref\\|push\\|pop\\|map\\|grep\\|join\\|split\\|length\\|scalar\\|my\\|local\\|each\\|shift\\|unshift\\|our\\|delete\\|undef\\|defined\\|exists\\|chomp\\|chop\\|print\\|printf\\|sprintf\\|printflush\\|open\\|close\\|flush\\|STDERR\\|STDOUT\\|warn\\|die\\|f_\\w+\\)\\>" . font-lock-keyword-face))
+                 '("\\<\\(given\\|when\\|not\\|like\\|pos\\|substr\\|qw\\|q\\|qq\\|qx\\|qr\\|and\\|or\\|xor\\|reverse\\|quotemeta\\|values\\|keys\\|sort\\|bless\\|caller\\|eq\\|ne\\|lt\\|le\\|gt\\|ge\\|cmp\\|ref\\|push\\|pop\\|map\\|grep\\|join\\|split\\|length\\|scalar\\|my\\|local\\|each\\|shift\\|unshift\\|our\\|delete\\|undef\\|defined\\|exists\\|chomp\\|chop\\|print\\|printf\\|sprintf\\|printflush\\|open\\|close\\|flush\\|STDERR\\|STDOUT\\|warn\\|die\\)\\>" . font-lock-keyword-face))
 
     ;; SQL comments
     (add-to-list 'perl-font-lock-keywords-2
@@ -212,7 +221,11 @@ use PM_CCC::T_Utils;
 
     ;; References
     (add-to-list 'perl-font-lock-keywords-2
-                 '("\\(\\[\\[:.+?:\\]\\]\\)" (1 font-lock-type-face)))))
+                 '("\\(\\[\\[:.+?:\\]\\]\\)" (1 font-lock-type-face)))
+
+    ;; TODO
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("##TODO##.*" . font-lock-todo-face))))
 
 
 (rv_perl_f_configure_fontify)
