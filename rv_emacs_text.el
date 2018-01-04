@@ -5,23 +5,19 @@
 
   (font-lock-add-keywords nil
                           '(
-                            ;; command line options
-                            ("[ \t]\\([-+]+[a-zA-Z0-9][-a-zA-Z0-9_]*\\)" 1 font-lock-keyword-face)
+                            ;; !!! WARNING | ALERT ...
+                            ("\\!\\!\\![ \t]*\\(WARNING\\|ALERT\\)[ \t]*\\!\\!\\!.*" . font-lock-log-warning-face)
 
-
-                            ;; !!! ERROR | WARNING | ...
+                            ;; !!! ERROR | FATAL ...
                             ("\\!\\!\\![ \t]*[A-Z]+[ \t]*\\!\\!\\!.*" . font-lock-log-error-face)
-
 
                             ;; ==> ...
                             ;; <== ...
                             ("[ \t]==>[ \t].*" . font-lock-log-in-out-face)
                             ("[ \t]<==[ \t].*" . font-lock-log-in-out-face)
 
-
                             ;; separation line
-                            ("\\(=====\\|-----\\|\\*\\*\\*\\*\\*\\).*" . font-lock-log-separ-face)
-
+                            ("\\(====\\|----\\|\\*\\*\\*\\*\\).*" . font-lock-log-separ-face)
 
                             ;; Wiki
                             ("^[=]+[ \t].*" . font-lock-wiki-head-1-face)
@@ -32,8 +28,10 @@
                             ("''.*?''" . font-lock-wiki-italic-face)
                             ("##TODO##.*" . font-lock-todo-face)
 
-
                             ;; generix Unix error
-                            ("^[ \t]*[a-z][-a-zA-Z0-9_]+:.*" . font-lock-log-error-face)))
+                            ("^[ \t]*[a-z][-a-zA-Z0-9_]+:.*" . font-lock-log-error-face)
+
+                            ;; command line options
+                            ("[ \t]\\([-+]+[a-zA-Z0-9][-a-zA-Z0-9_]*\\)" 1 font-lock-keyword-face)))
 
   (font-lock-mode t))

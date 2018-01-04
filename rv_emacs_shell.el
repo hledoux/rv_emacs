@@ -55,27 +55,28 @@
 
     (setq shell-font-lock-keywords
           '(
-            ;; PERSO: [/HOME_LDEV/hledoux/xdev]
-            ("^[ \t]*[A-Z]+:[ \t]*\\[.*" . font-lock-shell-mode-context-face)
+            ;; !!! WARNING | ALERT ...
+            ("\\!\\!\\![ \t]*\\(WARNING\\|ALERT\\)[ \t]*\\!\\!\\!.*" . font-lock-log-warning-face)
 
-            ;; command line options
-            ("[ \t]\\([-+]+[a-zA-Z0-9][-a-zA-Z0-9_]*\\)" 1 font-lock-keyword-face)
-
-            ;; !!! ERROR | WARNING | ...
+            ;; !!! ERROR | FATAL ...
             ("\\!\\!\\![ \t]*[A-Z]+[ \t]*\\!\\!\\!.*" . font-lock-log-error-face)
 
+            ;; PERSO: [/HOME_LDEV/hledoux/xdev]
+            ("^[ \t]*[A-Z]+:[ \t]*\\[.*" . font-lock-shell-mode-context-face)
 
             ;; ==> ...
             ;; <== ...
             ("[ \t]==>[ \t].*" . font-lock-log-in-out-face)
             ("[ \t]<==[ \t].*" . font-lock-log-in-out-face)
 
-
             ;; separation line
-            ("\\(=====\\|-----\\|\\*\\*\\*\\*\\*\\).*" . font-lock-log-separ-face)
+            ("\\(====\\|----\\|\\*\\*\\*\\*\\).*" . font-lock-log-separ-face)
 
             ;; generix Unix error
-            ("^[ \t]*[a-z][-a-zA-Z0-9_]+:.*" . font-lock-log-error-face)))))
+            ("^[ \t]*[a-z][-a-zA-Z0-9_]+:.*" . font-lock-log-error-face)
+
+            ;; command line options
+            ("[ \t]\\([-+]+[a-zA-Z0-9][-a-zA-Z0-9_]*\\)" 1 font-lock-keyword-face)))))
 
 
 (rv_shell_f_configure_fontify)
