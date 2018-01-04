@@ -72,7 +72,7 @@
 
 
             ;; separation line
-            ("\\(=====\\|-----\\|\\*\\*\\*\\*\\*\\|#####\\).*" . font-lock-log-separ-face)
+            ("\\(=====\\|-----\\|\\*\\*\\*\\*\\*\\).*" . font-lock-log-separ-face)
 
             ;; generix Unix error
             ("^[ \t]*[a-z][-a-zA-Z0-9_]+:.*" . font-lock-log-error-face)))))

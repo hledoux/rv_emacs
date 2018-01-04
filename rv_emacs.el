@@ -18,7 +18,6 @@
 (load "rv_emacs_cc")
 (load "rv_emacs_css")
 (load "rv_emacs_js")
-(load "rv_emacs_log")
 (load "rv_emacs_perl")
 (load "rv_emacs_php")
 (load "rv_emacs_shell")
