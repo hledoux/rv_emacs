@@ -6,6 +6,8 @@
 (add-to-list 'load-path (concat _rv_emacs_cs_HOME "/tools/rv_emacs"))
 
 
+
+
 (load "js2-mode")
 (load "blank-mode")
 (load "ediff")
@@ -51,3 +53,5 @@
 ;;; (rv_emacs_custom_faces_light)
 (rv_emacs_custom_faces_dark)
 
+
+(set-language-environment "UTF-8")
