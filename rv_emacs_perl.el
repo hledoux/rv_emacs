@@ -223,9 +223,9 @@ use PM_CCC::T_Utils;
     (add-to-list 'perl-font-lock-keywords-2
                  '("\\(\\[\\[:.+?:\\]\\]\\)" (1 font-lock-type-face)))
 
-    ;; TODO
+    ;; TODO etc.
     (add-to-list 'perl-font-lock-keywords-2
-                 '("##TODO##.*" . font-lock-todo-face))))
+                 '("##+[A-Z][-A-Za-z0-9_]+##+.*" . font-lock-todo-face))))
 
 
 (rv_perl_f_configure_fontify)

@@ -26,12 +26,21 @@
                             ("\\[\\[[A-Z][a-zA-Z0-9_:]*|.*?\\]\\]" . font-lock-wiki-macro-face)
                             ("'''.*?'''" . font-lock-wiki-bold-face)
                             ("''.*?''" . font-lock-wiki-italic-face)
-                            ("##TODO##.*" . font-lock-todo-face)
+
+                            ;; TODO etc.
+                            ("##+[A-Z][-A-Za-z0-9_]+##+.*" . font-lock-todo-face)
 
                             ;; generix Unix error
                             ("^[ \t]*[a-z][-a-zA-Z0-9_]+:.*" . font-lock-log-error-face)
 
                             ;; command line options
-                            ("[ \t]\\([-+]+[a-zA-Z0-9][-a-zA-Z0-9_]*\\)" 1 font-lock-keyword-face)))
+                            ("[ \t]\\([-+]+[a-zA-Z0-9][-a-zA-Z0-9_]*\\)" 1 font-lock-keyword-face)
+
+                            ;; name = [value]
+                            ;; - old form [name] = [value]
+                            ("\\[\\([@$%]?\\<[-a-zA-Z0-9_]+\\>\\)\\][ \t]*=[ \t]*\\[\\(.*?\\)\\]" (1 font-lock-builtin-face) (2 font-lock-string-face))
+                            ;; - new form name = [value]
+                            ("\\([@$%]?\\<[-a-zA-Z0-9_]+\\>\\)[ \t]*=[ \t]*\\[\\(.*?\\)\\]" (1 font-lock-builtin-face) (2 font-lock-string-face))
+                            ))
 
   (font-lock-mode t))
