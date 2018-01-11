@@ -57,7 +57,7 @@
    '(flash-paren-face-on ((t nil)))
    '(flash-paren-face-region ((t (:background "yellow"))))
    '(font-lock-builtin-face ((t (:weight bold :foreground "red"))))
-   '(font-lock-keyword-face ((t (:weight bold :foreground "#cc00cc"))))
+   '(font-lock-keyword-face ((t (:weight bold :foreground "purple"))))
    '(font-lock-log-error-face ((t (:weight bold :foreground "red"))))
    '(font-lock-log-success-face ((t (:weight bold :foreground "#00b300"))))
    '(font-lock-log-warning-face ((t (:weight bold :foreground "#cc8500"))))
