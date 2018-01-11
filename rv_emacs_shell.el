@@ -61,6 +61,12 @@
             ;; !!! ERROR | FATAL ...
             ("\\!\\!\\![ \t]*[A-Z]+[ \t]*\\!\\!\\!.*" . font-lock-log-error-face)
 
+            ;; failed...
+            ("\\<\\(fail\\|failed\\|failure\\|ko\\|error\\|fatal\\|abort\\|aborted\\)\\>" . font-lock-log-error-face)
+
+            ;; success...
+            ("\\<\\(success\\|successful\\|congratulations\\|congratulation\\|congrat\\|perfect\\|ok\\)\\>" . font-lock-log-success-face)
+
             ;; PERSO: [/HOME_LDEV/hledoux/xdev]
             ("^[ \t]*[A-Z]+:[ \t]*\\[.*" . font-lock-shell-mode-context-face)
 
@@ -76,13 +82,13 @@
             ("^[ \t]*[a-z][-a-zA-Z0-9_]+:.*" . font-lock-log-error-face)
 
             ;; command line options
-            ("[ \t]\\([-+]+[a-zA-Z0-9][-a-zA-Z0-9_]*\\)" 1 font-lock-keyword-face)
+            ("[ \t]\\([-+]+[a-zA-Z0-9][-a-zA-Z0-9_]*\\)" (1 font-lock-keyword-face))
 
             ;; name = [value]
             ;; - old form [name] = [value]
-            ("\\[\\([@$%]?\\<[-a-zA-Z0-9_]+\\>\\)\\][ \t]*=[ \t]*\\[\\(.*?\\)\\]" (1 font-lock-builtin-face) (2 font-lock-string-face))
+            ("\\[\\([@$%]?\\<[-a-zA-Z0-9_]+\\>\\)\\][ \t]*=[ \t]*\\[\\(.*?\\)\\]" (1 font-lock-keyword-face) (2 font-lock-string-face))
             ;; - new form name = [value]
-            ("\\([@$%]?\\<[-a-zA-Z0-9_]+\\>\\)[ \t]*=[ \t]*\\[\\(.*?\\)\\]" (1 font-lock-builtin-face) (2 font-lock-string-face))))))
+            ("\\([@$%]?\\<[-a-zA-Z0-9_]+\\>\\)[ \t]*=[ \t]*\\[\\(.*?\\)\\]" (1 font-lock-keyword-face) (2 font-lock-string-face))))))
 
 
 (rv_shell_f_configure_fontify)
@@ -123,4 +129,9 @@
   (define-key shell-mode-map [(control shift k)] `rv_shell_f_kill_up_to_buffer_start)
   (define-key shell-mode-map [(control meta l)] nil)
 
-  (font-lock-mode t))
+  ;; consider underscore and dollar sign are part of words
+  (modify-syntax-entry ?_ "w")
+  (modify-syntax-entry ?$ "w")
+
+  (font-lock-mode t)
+  (setq font-lock-keywords-case-fold-search t))

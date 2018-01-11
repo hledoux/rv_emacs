@@ -181,6 +181,11 @@ use PM_CCC::T_Utils;
                  '("\\<\\([a-zA-Z0-9_:]+\\)::\\([a-zA-Z0-9_]+\\)[\t\n ]*(" (1 font-lock-type-face) (2 font-lock-function-name-face)))
 
 
+    ;; Perl extended keywords
+    (add-to-list 'perl-font-lock-keywords-2
+                 '("\\<\\(isnull\\|coalesce\\|convert\\|min\\|max\\|is +null\\|is +not +null\\|null\\|given\\|case\\|when\\|then\\|end\\|not\\|in\\|like\\|pos\\|substr\\|qw\\|q\\|qq\\|qx\\|qr\\|and\\|or\\|xor\\|reverse\\|quotemeta\\|values\\|keys\\|sort\\|bless\\|caller\\|eq\\|ne\\|lt\\|le\\|gt\\|ge\\|cmp\\|ref\\|push\\|pop\\|map\\|grep\\|select\\|from\\|where\\|\\(\\(right\\|left\\|outer\\|inner\\) +\\)*join\\|on\\|order +by\\|group +by\\|having\\|split\\|length\\|scalar\\|my\\|local\\|each\\|shift\\|unshift\\|our\\|delete\\|undef\\|defined\\|exists\\|chomp\\|chop\\|print\\|printf\\|sprintf\\|printflush\\|open\\|close\\|flush\\|STDERR\\|STDOUT\\|warn\\|die\\)\\>" . font-lock-keyword-face))
+
+
     ;; Fields
     (add-to-list 'perl-font-lock-keywords-2
                  '("{\\([A-Za-z0-9_]+\\)}" (1 font-lock-builtin-face)))
@@ -210,10 +215,9 @@ use PM_CCC::T_Utils;
     (add-to-list 'perl-font-lock-keywords-2
                  '("\\<GEN_[A-Za-z0-9_]+" . font-lock-keyword-face))
 
-
-    ;; Perl extended keywords
+    ;; (index ...)
     (add-to-list 'perl-font-lock-keywords-2
-                 '("\\<\\(given\\|when\\|not\\|in\\|like\\|pos\\|substr\\|qw\\|q\\|qq\\|qx\\|qr\\|and\\|or\\|xor\\|reverse\\|quotemeta\\|values\\|keys\\|sort\\|bless\\|caller\\|eq\\|ne\\|lt\\|le\\|gt\\|ge\\|cmp\\|ref\\|push\\|pop\\|map\\|grep\\|join\\|split\\|length\\|scalar\\|my\\|local\\|each\\|shift\\|unshift\\|our\\|delete\\|undef\\|defined\\|exists\\|chomp\\|chop\\|print\\|printf\\|sprintf\\|printflush\\|open\\|close\\|flush\\|STDERR\\|STDOUT\\|warn\\|die\\)\\>" . font-lock-keyword-face))
+                 '("( *\\(index\\) +\\([^ ]+?\\) *)" (1 font-lock-keyword-face) (2 font-lock-constant-face)))
 
     ;; SQL comments
     (add-to-list 'perl-font-lock-keywords-2

@@ -14,7 +14,6 @@
 (global-set-key [(control meta q)] 'rv_common_f_goto_relative_line)
 (global-set-key [(control meta right)] 'rv_common_f_move_scroll_right)
 (global-set-key [(control meta s)] 'rv_common_f_sort_selection_lines)
-(global-set-key [(control meta t)] 'toggle-read-only)
 (global-set-key [(control meta up)] 'rv_common_f_move_scroll_up)
 (global-set-key [(control next)] 'end-of-buffer)
 (global-set-key [(control p)] 'rv_language_f_re_indent_buffer)

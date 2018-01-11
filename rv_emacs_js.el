@@ -107,6 +107,7 @@
   (local-set-key (kbd "RET") 'newline-and-indent)
   (local-set-key [f1] 'rv_js_f_indent_sexp)
 
+  ;; consider underscore and dollar sign are part of words
   (modify-syntax-entry ?_ "w")
   (modify-syntax-entry ?$ "w")
 

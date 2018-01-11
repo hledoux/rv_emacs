@@ -122,6 +122,7 @@
                           " *.service"
                           " *.sh"
                           " *.spd"
+                          " *.spd_inc"
                           " *.sql"
                           " *.sql_*"
                           " *.svg"
