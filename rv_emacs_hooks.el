@@ -26,6 +26,7 @@
 (add-to-list 'auto-mode-alist '("\\.l$" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.lex$" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.log$" . text-mode))
+(add-to-list 'auto-mode-alist '("\\.log-err$" . text-mode))
 (add-to-list 'auto-mode-alist '("\\.mib$" . text-mode))
 (add-to-list 'auto-mode-alist '("\\.mk$" . makefile-mode))
 (add-to-list 'auto-mode-alist '("\\.out$" . text-mode))
