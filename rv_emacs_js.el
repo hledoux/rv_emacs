@@ -114,6 +114,12 @@
   ;; support of back-quotes
   (modify-syntax-entry ?` "\"")
 
+
+  (font-lock-add-keywords nil
+                          '(
+                            ;; name: value
+                            ("\\<\\([A-Za-z0-9_]+\\)\\>[ \t]*:" (1 font-lock-builtin-face))))
+
   (font-lock-mode t))
 
 

@@ -61,6 +61,9 @@
             ;; !!! ERROR | FATAL ...
             ("\\!\\!\\![ \t]*[A-Z]+[ \t]*\\!\\!\\!.*" . font-lock-log-error-face)
 
+            ;; command line options
+            ("[ \t]\\([-+]+[a-zA-Z0-9][-a-zA-Z0-9_]*\\)" (1 font-lock-keyword-face))
+
             ;; failed...
             ("\\<\\(fail\\|failed\\|failure\\|ko\\|error\\|fatal\\|abort\\|aborted\\)\\>" . font-lock-log-error-face)
 
@@ -80,9 +83,6 @@
 
             ;; generix Unix error
             ("^[ \t]*[a-z][-a-zA-Z0-9_]+:.*" . font-lock-log-error-face)
-
-            ;; command line options
-            ("[ \t]\\([-+]+[a-zA-Z0-9][-a-zA-Z0-9_]*\\)" (1 font-lock-keyword-face))
 
             ;; name = [value]
             ;; - old form [name] = [value]

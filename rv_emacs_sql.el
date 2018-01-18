@@ -151,7 +151,7 @@ GO
   (message (concat "replaced SQL comments in buffer " (buffer-name) " !")))
 
 
-;;; ##TODO## fontify some missing SQL keywords: join
+;;; ##TODO## fontify some missing SQL keywords: join, index, etc.
 
 
 (defun rv_sql_f_sql_mode_hook ()
