@@ -1,3 +1,48 @@
+
+
+
+(defun rv_js_f_insert_header_method ()
+  (interactive)
+  (let ((ls_func_name (read-string "FuncName = ")))
+    (let ((Intro (concat "
+// ********************************************************************
+//  FUNCTION DESCRIPTION :
+//  -
+//  ARGUMENTS :
+//  -
+//  RETURN VALUE :
+//  -
+//  HISTORY :
+//  - Creation          : "
+                         (current-time-string)
+                         " - "
+                         (user-full-name)
+                         "
+//  - Last modification : "
+                         (current-time-string)
+                         " - "
+                         (user-full-name)
+                         "
+// ********************************************************************
+function " ls_func_name "(...) {
+  // ##TODO##
+  console.error('##TODO## Function [" ls_func_name "] not yet implemented !');
+}
+")))
+
+      (insert (concat Intro)))))
+
+
+(defun rv_js_f_insert_separator ()
+  (interactive)
+  (insert "
+// ********************************************************************
+//  -
+// ********************************************************************
+"))
+
+
+
 (defun rv_js_f_indent_sexp ()
   (interactive)
   (save-excursion
