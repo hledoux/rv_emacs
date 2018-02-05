@@ -122,7 +122,7 @@
    '(font-lock-wiki-head-2-face ((t (:foreground "#00b300"))))
    '(font-lock-wiki-macro-face ((t (:weight bold :foreground "black" :background "cyan"))))
    '(linum ((t (:background "gray10" :foreground "white" :slant italic ))))
-   '(mode-line ((t (:background "white" :foreground "blue" :weight bold))))
+   '(mode-line ((t (:background "red" :foreground "white" :weight bold))))
    '(mode-line-inactive ((t (:background "white" :foreground "gray50" :weight normal))))
    '(region ((t (:background "#002966"))))
    '(sh-heredoc ((t (:foreground "green" :weight normal :background "gray30"))))))
