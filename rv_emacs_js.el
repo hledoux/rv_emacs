@@ -162,8 +162,12 @@ function " ls_func_name "(...) {
 
   (font-lock-add-keywords nil
                           '(
+                            ;; numeric constants
+                            ("\\(\\([-+][ \t]*\\)?\\<[0-9]+\\(\\.[0-9+]\\)?\\>\\)" (1 font-lock-builtin-face))
+
+
                             ;; method / function calls
-                            ("\\.?\\<\\([A-Za-z0-9_]+\\)[\t \n\r]*(" (1 font-lock-function-name-face))
+                            ("\\.?\\<\\([A-Za-z_][A-Za-z0-9_]*\\)[\t \n\r]*(" (1 font-lock-function-name-face))
 
 
                             ;; name: value
