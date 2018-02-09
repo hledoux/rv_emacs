@@ -1,3 +1,6 @@
+;; (set-default-font "-adobe-courier-medium-r-normal--14-100-100-100-m-90-iso8859-1")
+(set-default-font "-misc-fixed-medium-r-normal--14-130-75-75-c-70-iso8859-1")
+
 
 (setq _rv_emacs_cs_HOME (getenv "HOME"))
 

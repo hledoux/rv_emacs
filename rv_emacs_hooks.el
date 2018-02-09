@@ -64,6 +64,7 @@
 (add-hook 'css-mode-hook 'rv_css_f_css_mode_hook)
 (add-hook 'find-file-hook 'rv_common_f_find_file_hook)
 (add-hook 'js-mode-hook 'rv_js_f_js_mode_hook)
+(add-hook 'mouse-leave-buffer-hook 'rv_common_stop_using_minibuffer)
 (add-hook 'perl-mode-hook `rv_perl_f_perl_mode_hook)
 (add-hook 'shell-mode-hook 'rv_shell_f_shell_mode_hook)
 (add-hook 'sql-mode-hook 'rv_sql_f_sql_mode_hook)

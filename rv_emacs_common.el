@@ -205,3 +205,10 @@
 (defun rv_common_f_insert_tab ()
   (interactive)
   (insert "\t"))
+
+
+(defun rv_common_stop_using_minibuffer ()
+  "kill the minibuffer"
+  (when (and (>= (recursion-depth) 1) (active-minibuffer-window))
+    (abort-recursive-edit)))
+
