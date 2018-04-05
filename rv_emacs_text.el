@@ -15,7 +15,7 @@
                             ("[ \t]\\([-+]+[a-zA-Z0-9][-a-zA-Z0-9_]*\\)" (1 font-lock-keyword-face))
 
                             ;; failed...
-                            ("\\<\\(fail\\|failed\\|failure\\|ko\\|off\\|error\\|fatal\\|abort\\|aborted\\)\\>" . font-lock-log-error-face)
+                            ("\\<\\(fail\\|failed\\|failure\\|not[- ]ok\\|ko\\|off\\|error\\|fatal\\|abort\\|aborted\\)\\>" . font-lock-log-error-face)
 
                             ;; success...
                             ("\\<\\(success\\|successful\\|succeeded\\|congratulations\\|congratulation\\|congrat\\|perfect\\|ok\\)\\>" . font-lock-log-success-face)

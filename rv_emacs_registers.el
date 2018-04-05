@@ -1,5 +1,5 @@
-(set-register ?C "cvs upd ; ~/cvs_branch/xccc-rel-x-y-z/tools/ccc_deploy.pl here ; make gen_all ; cvscheck")
-(set-register ?c "cvs upd ; ~/xccc/tools/ccc_deploy.pl here ; make gen_all ; cvscheck")
+(set-register ?C "cvs upd ; ~/cvs_branch/xccc-rel-x-y-z/tools/ccc_deploy.pl here ; make mk_root ; cvscheck")
+(set-register ?c "cvs upd ; ~/xccc/tools/ccc_deploy.pl here ; make mk_root ; cvscheck")
 (set-register ?d "(<(SpdDateFormatYYYYMMDDhhmmss)()>)")
 (set-register ?e "(<(SpdStringsAreEqual)()()>)")
 (set-register ?E "(<(SpdStringsAreNotEqual)()()>)")
