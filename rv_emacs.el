@@ -28,6 +28,8 @@
 
 
 
+
+
 ;; On the machine hosting the X-server:
 ;;
 ;; 1- populate the folder .fonts/ with the expected fonts
@@ -50,16 +52,14 @@
 ;;   ssh -f xnms-ldev "export DISPLAY=$DISPLAY ; emacs &"
 
 
-;; try to locate [/XMID_..._DIR/emacs-25.1/our_lib_distr/emacs/lisp]
-(setq _rv_emacs_cs_xmid_emacs_lisp_dir (shell-command-to-string "echo -n $(ls -d -1 /XMID_*_DIR/emacs-25.1/our_lib_distr/emacs/lisp)"))
-(if (or (eq _rv_emacs_cs_xmid_emacs_lisp_dir nil) (eq _rv_emacs_cs_xmid_emacs_lisp_dir ""))
-    (error "unable to locate [/XMID_*_DIR/emacs-25.1/our_lib_distr/emacs/lisp]")
-  (add-to-list 'load-path _rv_emacs_cs_xmid_emacs_lisp_dir))
 
 
-;; add the directory of the current file to the load-path
-(add-to-list 'load-path (concat (file-name-directory load-file-name) "extensions"))
-(add-to-list 'load-path (concat (file-name-directory load-file-name) "."))
+(setq _rv_emacs_cs_HOME (getenv "HOME"))
+
+(add-to-list 'load-path (concat "/XMID_LDEV_DIR/emacs-25.1/our_lib_distr/emacs/lisp"))
+(add-to-list 'load-path (concat _rv_emacs_cs_HOME "/tools/rv_emacs/extensions"))
+(add-to-list 'load-path (concat _rv_emacs_cs_HOME "/tools/rv_emacs"))
+
 
 
 

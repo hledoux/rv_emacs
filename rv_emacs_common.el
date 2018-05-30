@@ -131,6 +131,14 @@
   (interactive)
   (scroll-up 1))
 
+(defun rv_common_f_move_scroll_other_up ()
+  (interactive)
+  (scroll-other-window 1))
+
+(defun rv_common_f_move_scroll_other_down ()
+  (interactive)
+  (scroll-other-window-down 1))
+
 
 (defun rv_common_f_kill_current_buffer ()
   (interactive)
