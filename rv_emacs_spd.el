@@ -1,18 +1,26 @@
 
-(defun rv_spd_f_normalize_space_between_queries ()
+(defun rv_spd_f_is_spd_mode ()
+  (string-match "^\\(spd\\)$" (rv_language_f_buffer_ext)))
+
+
+(defun rv_spd_f_normalize_space_between_blocks ()
   (interactive)
   (save-excursion
-    (goto-char 1)
-    (replace-regexp " *\\([,;]\\)\n+\\( *\\<\\(DDL_Table\\>\\|SPD_Procedure\\|SPD_QueryDeclare\\|SPD_QueryEval\\|SPD_QueryDescribe\\|SPD_Assert\\)\\)" "\\1\n\n\n\n\n\n\\2")
-    (replace-regexp " *&&\n+\\( *( *$[a-zA-Z0-9_]+->m_RegisterReport\\)" " &&\n\n\n\n\n\n\\1")))
+    (if (rv_spd_f_is_spd_mode)
+        (progn
+          (goto-char 1)
+          (while (re-search-forward " *\\([,;]\\)\n+\\( *\\<\\(DDL_Table\\>\\|SPD_Procedure\\|SPD_QueryDeclare\\|SPD_QueryEval\\|SPD_QueryDescribe\\|SPD_Assert\\)\\)" (point-max) t)
+            (replace-match "\\1\n\n\n\n\n\\2"))))))
 
 
 
 
 (defun rv_spd_f_insert_header_method ()
   (interactive)
-  (let ((ProcName (read-string "ProcName = ")))
-    (insert "
+  (if (rv_spd_f_is_spd_mode)
+      (progn
+        (let ((ProcName (read-string "ProcName = ")))
+          (insert "
 GEN_Include('XXX_defs.tpl'); ##TODO##
 
 
@@ -25,8 +33,8 @@ GEN_Include('XXX_defs.tpl'); ##TODO##
 #  RETURN VALUE :
 #  -
 #  HISTORY :
-#  - Creation          : " (current-time-string) " - " (user-full-name) "
-#  - Last modification : " (current-time-string) " - " (user-full-name) "
+#  - Creation          : " (rv_language_f_current_time_string) " - " (rv_language_f_current_user_name) "
+#  - Last modification : " (rv_language_f_current_time_string) " - " (rv_language_f_current_user_name) "
 # ********************************************************************
 SPD_Procedure
   (-ProcName => '" ProcName "',
@@ -167,7 +175,7 @@ SPD_Procedure
 
 
    SPD_UnitTest(-Script => q{execute " ProcName "}),
-   );")))
+   );")))))
 
 
 

@@ -38,12 +38,12 @@
   (interactive)
   (save-excursion
     (let ((Middle (point)))
-      (while (looking-at "[^][<>\n\r\t '`\"{}();]")
+      (while (looking-at "[^][<>\n\r\t '`\"{}();=]")
         (forward-char -1))
       (forward-char 1)
       (let ((Start (point)))
         (goto-char Middle)
-        (while (looking-at "[^][<>\n\r\t '`\"{}():;]")
+        (while (looking-at "[^][<>\n\r\t '`\"{}():;=]")
           (forward-char 1))
         (let ((FileName (buffer-substring Start (point))))
           (message (concat "extracted file name : [" FileName "]"))
@@ -83,7 +83,7 @@
 
 (defun rv_common_f_goto_relative_line ()
   (interactive)
-  (goto-line (- (+ (current-line) (string-to-number (read-string "Relative line from point : "))) 2)))
+  (goto-line (- (+ (line-number-at-pos) (string-to-number (read-string "Relative line from point : "))) 2)))
 
 
 (defun rv_common_f_toggle_wrap_lines ()
@@ -95,7 +95,7 @@
     (message (if truncate-lines "long lines: truncating display" "long lines: wrapping"))))
 
 
-(defun rv_common_f_rotate_buffer ()
+(defun rv_common_f_rotate_to_next_buffer ()
   (interactive)
   (bury-buffer))
 
@@ -169,7 +169,7 @@
     (message "turned into a single line !")))
 
 
-(defun rv_common_f_sort_selection_lines ()
+(defun rv_common_f_sort_lines_selected ()
   (interactive)
   (save-excursion
     (sort-lines nil (region-beginning) (region-end))))
@@ -198,8 +198,8 @@
 
 
 
-(defun rv_common_f_ediff_with_previous_version ()
-  "compare the content of the current buffer with its previous version"
+(defun rv_common_f_ediff_with_last_commit ()
+  "compare the content of the current buffer with its last committed version"
   (interactive)
   (save-excursion
     (vc-revision-other-window "")
@@ -215,8 +215,40 @@
   (insert "\t"))
 
 
+(defun rv_common_f_insert_tilde ()
+  (interactive)
+  (insert "~"))
+
+
+(defun rv_common_f_insert_back_quote ()
+  (interactive)
+  (insert "`"))
+
+
+(defun rv_common_f_insert_single_quote ()
+  (interactive)
+  (insert "'"))
+
+
+(defun rv_common_f_insert_double_quote ()
+  (interactive)
+  (insert "\""))
+
+
 (defun rv_common_stop_using_minibuffer ()
   "kill the minibuffer"
   (when (and (>= (recursion-depth) 1) (active-minibuffer-window))
     (abort-recursive-edit)))
 
+
+;; https://www.emacswiki.org/emacs/SortWords
+(defun sort-words (reverse beg end)
+  "Sort words in region alphabetically, in REVERSE if negative.
+    Prefixed with negative \\[universal-argument], sorts in reverse.
+
+    The variable `sort-fold-case' determines whether alphabetic case
+    affects the sort order.
+
+    See `sort-regexp-fields'."
+  (interactive "*P\nr")
+  (sort-regexp-fields reverse "\\w+" "\\&" beg end))

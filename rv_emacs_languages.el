@@ -1,5 +1,15 @@
 
 
+(defun rv_language_f_current_time_string ()
+  (interactive)
+  (format-time-string "%Y-%m-%d %T"))
+
+
+(defun rv_language_f_current_user_name ()
+  (interactive)
+  (concat (user-login-name)))
+
+
 (defun rv_language_f_indent_region (PointMin PointMax)
   (interactive)
   (save-excursion
@@ -20,27 +30,30 @@
   (insert "##TODO##"))
 
 
+(defun rv_language_f_buffer_ext ()
+  (interactive)
+  (setq ls_buffer_name (buffer-name))
+  (if (string-match "\\.\\([a-zA-Z][a-zA-Z0-9_+]*\\)$" ls_buffer_name)
+      (downcase (substring ls_buffer_name (match-beginning 1) (match-end 1)))))
+
 
 (defun rv_language_f_insert_header_method ()
   (interactive)
   (save-excursion
-    (setq BufferName (buffer-name))
-    (if (string-match "\\.\\([a-zA-Z][a-zA-Z0-9+]*\\)$" BufferName)
-        (progn
-          (setq Extension (downcase (substring BufferName (match-beginning 1) (match-end 1))))
-          (message (concat "buffer [" BufferName "] of type [" Extension "]"))
-          (if (string-equal mode-name "JavaScript") (rv_js_f_insert_header_method) nil)
-          (if (string-match "^\\(pl\\|pm\\)" Extension) (rv_perl_f_insert_header_method) nil)
-          (if (string-match "^\\(spd\\)$" Extension) (rv_spd_f_insert_header_method) nil)
-          (if (string-match "^\\(prc\\)$" Extension) (rv_sql_f_insert_header_method) nil)
-          (if (string-match "^\\(cc\\|cpp\\|cxx\\|c++\\|hh\\|hpp\\|hxx\\|h++\\|c\\|h\\)$" Extension) (rv_cc_f_insert_header_method) nil)))))
+    (message (concat "buffer [" (buffer-name) "] of type [" (rv_language_f_buffer_ext) "]"))
+    (rv_js_f_insert_method)
+    (rv_perl_f_insert_header_method)
+    (rv_spd_f_insert_header_method)
+    (rv_sql_f_insert_header_method)
+    (rv_cc_f_insert_header_method)))
 
 
 (defun rv_language_f_insert_trace ()
   (interactive)
   (save-excursion
-    (if (string-equal mode-name "Perl") (rv_perl_f_insert_trace) nil)
-    (if (string-equal mode-name "SQL") (rv_sql_f_insert_trace) nil)))
+    (rv_perl_f_insert_trace)
+    (rv_js_f_insert_trace)
+    (rv_sql_f_insert_trace)))
 
 
 
@@ -48,31 +61,41 @@
 (defun rv_language_f_update_history ()
   (interactive)
   (save-excursion
-    (and (re-search-backward "\\<Last *modification *:" (point-min) t)
-         (progn
-           (and (re-search-forward "\\<Last *modification *:.*$" (point-max) t)
-                (progn
-                  (replace-match "Last modification : ")
-                  (insert (current-time-string))
-                  (insert " - ")
-                  (insert (user-full-name))))))))
+    (cond
+
+     ;; * @modified 2019-05-16 07:38:43 (hledoux)
+     ((and (re-search-backward "^ *\\* *@modified " (point-min) t)
+           (progn
+             (and (re-search-forward "^\\(\\( *\\* *@modified\\).*\\)$" (point-max) t)
+                  (progn
+                    (replace-match (concat "\\1\n\\2 " (rv_language_f_current_time_string) " (" (rv_language_f_current_user_name)")")))))) t)
+
+     ((and (re-search-backward "\\<Last *modification *:" (point-min) t)
+           (progn
+             (and (re-search-forward "\\<Last *modification *:.*$" (point-max) t)
+                  (progn
+                    (replace-match "Last modification : ")
+                    (insert (rv_language_f_current_time_string))
+                    (insert " - ")
+                    (insert (rv_language_f_current_user_name)))))) t))))
 
 
 
 (defun rv_language_f_insert_header_class ()
   (interactive)
   (save-excursion
-    (if (string-equal mode-name "Perl") (rv_perl_f_insert_header_class) nil)
-    (if (string-equal mode-name "C++") (rv_cc_f_insert_header_class) nil)))
+    (rv_js_f_insert_header_class)
+    (rv_perl_f_insert_header_class)
+    (rv_cc_f_insert_header_class)))
 
 
 (defun rv_language_f_insert_separator ()
   (interactive)
   (save-excursion
-    (if (string-equal mode-name "JavaScript") (rv_js_f_insert_separator) nil)
-    (if (string-equal mode-name "Perl") (rv_perl_f_insert_separator) nil)
-    (if (string-equal mode-name "SQL") (rv_sql_f_insert_separator) nil)
-    (if (string-equal mode-name "C++") (rv_cc_f_insert_separator) nil)))
+    (rv_js_f_insert_separator)
+    (rv_perl_f_insert_separator)
+    (rv_sql_f_insert_separator)
+    (rv_cc_f_insert_separator)))
 
 
 
@@ -81,15 +104,21 @@
   (interactive)
   (save-excursion
     (rv_common_f_remove_trailing_blanks)
+
     (goto-char (point-min))
-    (while (re-search-forward "^ */\\*\\*" (point-max) t)
-      (replace-match "/* *"))
+    (while (re-search-forward "^ */\\*\\*\\*" (point-max) t)
+      (replace-match "/* **"))
+
     (goto-char (point-min))
     (while (re-search-forward "\\*\\*/ *$" (point-max) t)
       (replace-match "* */"))
+
+    (rv_spd_f_normalize_space_between_blocks)
+    (rv_perl_f_normalize_space_between_blocks)
+    (rv_js_f_normalize_space_between_blocks)
+
     (rv_language_f_indent_region (point-min) (point-max))
-    (rv_common_f_remove_trailing_blanks)
-    (rv_spd_f_normalize_space_between_queries)))
+    (rv_common_f_remove_trailing_blanks)))
 
 
 
@@ -111,7 +140,10 @@
                           " *.html"
                           " *.inc"
                           " *.js"
+                          " *.json"
+                          " *.json_mdl"
                           " *.ksh"
+                          " *.md"
                           " *.mdl"
                           " *.oid"
                           " *.out"
@@ -133,7 +165,6 @@
                           " *.trg"
                           " *.txt"
                           " *.vie"
-                          " *.web"
                           ))
 
            (StringToGrep (read-string "pattern to grep : "))

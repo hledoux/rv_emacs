@@ -24,7 +24,7 @@
 (add-to-list 'auto-mode-alist '("\\.inc.php$" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.inl$" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.js$" . js-mode))
-(add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
+(add-to-list 'auto-mode-alist '("\\.json[-_a-z]*$" . js-mode))
 (add-to-list 'auto-mode-alist '("\\.l$" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.lex$" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.log$" . text-mode))

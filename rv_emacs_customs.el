@@ -103,6 +103,7 @@
   (interactive)
   (rv_emacs_custom_faces_common)
   (custom-set-faces
+   '(isearch ((t (:background "white" :foreground "red" :weight bold))))
    '(comint-highlight-input ((t (:weight bold :foreground "#2a7bfc"))))
    '(comint-highlight-prompt ((t (:foreground "cyan"))))
    '(default ((t (:background "black" :foreground "white"))))
@@ -124,7 +125,8 @@
    '(linum ((t (:background "gray10" :foreground "white" :slant italic ))))
    '(mode-line ((t (:background "red" :foreground "white" :weight bold))))
    '(mode-line-inactive ((t (:background "white" :foreground "gray50" :weight normal))))
-   '(region ((t (:background "#002966"))))
+   ;; '(region ((t (:background "#edc3c5" :foreground "black"))))
+   '(region ((t (:background "cyan" :foreground "blue"))))
    '(sh-heredoc ((t (:foreground "green" :weight normal :background "gray30"))))))
 
 

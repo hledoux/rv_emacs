@@ -1,6 +1,7 @@
 
 ;; (setq rv_emacs_font_family_list (font-family-list))
 ;; (set-frame-font "Fixed-10")
+;; (set-frame-font "Fixed-12")
 ;; (set-frame-font "Hack-10")
 ;; (set-frame-font "courier 12")
 ;; (set-frame-font "Courier 10 Pitch")
@@ -8,7 +9,7 @@
 ;; (set-frame-font "DejaVu Sans Mono")
 ;; (set-frame-font "DejaVu")
 ;; (set-frame-font "Roboto Mono")
-;;
+;; (set-frame-font "-misc-fixed-medium-r-normal--14-130-75-75-c-70-iso8859-1")
 ;;
 ;; a few handly Emacs functions:
 ;; (print (font-family-list))
@@ -28,8 +29,6 @@
 
 
 
-
-
 ;; On the machine hosting the X-server:
 ;;
 ;; 1- populate the folder .fonts/ with the expected fonts
@@ -43,7 +42,7 @@
 ;;
 ;; 3- content of my file .Xresources
 ;;   Emacs.FontBackend: xft
-;;   Emacs.Font: Fixed-10
+;;   Emacs.Font: Fixed-12
 ;;
 ;; 4- compile / reload this .Xresources
 ;;   xrdb .Xresources
@@ -52,14 +51,16 @@
 ;;   ssh -f xnms-ldev "export DISPLAY=$DISPLAY ; emacs &"
 
 
+;; try to locate [/XMID_..._DIR/emacs-25.1/our_lib_distr/emacs/lisp]
+(setq _rv_emacs_cs_xmid_emacs_lisp_dir (shell-command-to-string "echo -n $(ls -d -1 /XMID_*_DIR/emacs-25.1/our_lib_distr/emacs/lisp)"))
+(if (or (eq _rv_emacs_cs_xmid_emacs_lisp_dir nil) (eq _rv_emacs_cs_xmid_emacs_lisp_dir ""))
+    (error "unable to locate [/XMID_*_DIR/emacs-25.1/our_lib_distr/emacs/lisp]")
+  (add-to-list 'load-path _rv_emacs_cs_xmid_emacs_lisp_dir))
 
 
-(setq _rv_emacs_cs_HOME (getenv "HOME"))
-
-(add-to-list 'load-path (concat "/XMID_LDEV_DIR/emacs-25.1/our_lib_distr/emacs/lisp"))
-(add-to-list 'load-path (concat _rv_emacs_cs_HOME "/tools/rv_emacs/extensions"))
-(add-to-list 'load-path (concat _rv_emacs_cs_HOME "/tools/rv_emacs"))
-
+;; add the directory of the current file to the load-path
+(add-to-list 'load-path (concat (file-name-directory load-file-name) "extensions"))
+(add-to-list 'load-path (concat (file-name-directory load-file-name) "."))
 
 
 
@@ -80,6 +81,7 @@
 (load "rv_emacs_shell")
 (load "rv_emacs_shell_script")
 (load "rv_emacs_spd")
+(load "rv_emacs_ddl")
 (load "rv_emacs_sql")
 (load "rv_emacs_text")
 (load "rv_emacs_tmpl")
@@ -88,6 +90,7 @@
 
 ;;; functions common to every languages
 (load "rv_emacs_common")
+(load "rv_emacs_macros")
 (load "rv_emacs_languages")
 
 
@@ -110,3 +113,12 @@
 
 
 (set-language-environment "UTF-8")
+
+
+;; allow the use of command-lines like:
+;;   emacsclient <file-to-edit>
+(load "server")
+(unless (server-running-p) (server-start))
+
+
+(set-frame-font "-misc-fixed-medium-r-normal--14-130-75-75-c-70-iso8859-1")

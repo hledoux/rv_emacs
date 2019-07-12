@@ -67,10 +67,13 @@
             ;; failed...
             ("\\<\\(fail\\|failed\\|failure\\|not[- ]ok\\|ko\\|off\\|error\\|fatal\\|abort\\|aborted\\)\\>" . font-lock-log-error-face)
 
-            ;; success...
-            ("\\<\\(success\\|successful\\|succeeded\\|congratulations\\|congratulation\\|congrat\\|perfect\\|ok\\)\\>" . font-lock-log-success-face)
+            ;; warning...
+            ("\\<\\(warning\\|attention\\)\\>" . font-lock-log-warning-face)
 
-            ;; PERSO: [/HOME_LDEV/hledoux/xdev]
+            ;; success...
+            ("\\<\\(success\\|successful\\|succeeded\\|congratulations\\|congratulation\\|congrat\\|perfect\\|ok\\|up-to-date\\|up[ ]+to[ ]+date\\)\\>" . font-lock-log-success-face)
+
+            ;; PERSO: [/HOME_XXX/hledoux/xdev]
             ("^[ \t]*[A-Z]+:[ \t]*\\[.*" . font-lock-shell-mode-context-face)
 
             ;; ==> ...

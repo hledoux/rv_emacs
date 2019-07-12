@@ -1,10 +1,16 @@
 (load "sql")
 
 
+(defun rv_sql_f_is_prc_mode ()
+  (string-match "^\\(prc\\)$" (rv_language_f_buffer_ext)))
+
+
 (defun rv_sql_f_insert_header_method ()
   (interactive)
-  (let ((ProcName (read-string "ProcName = ")))
-    (insert "
+  (if (rv_sql_f_is_prc_mode)
+      (progn
+        (let ((ProcName (read-string "ProcName = ")))
+          (insert "
 /* ********************************************************************
    FUNCTION DESCRIPTION :
    -
@@ -14,15 +20,15 @@
    -
    HISTORY :
    - Creation          : ")
-    (insert (current-time-string))
-    (insert " - ")
-    (insert (user-full-name))
-    (insert "
+          (insert (rv_language_f_current_time_string))
+          (insert " - ")
+          (insert (rv_language_f_current_user_name))
+          (insert "
    - Last modification : ")
-    (insert (current-time-string))
-    (insert " - ")
-    (insert (user-full-name))
-    (insert (concat "
+          (insert (rv_language_f_current_time_string))
+          (insert " - ")
+          (insert (rv_language_f_current_user_name))
+          (insert (concat "
    ******************************************************************** */
 PRINT \"* Creating procedure '" ProcName "'\"
 GO
@@ -48,21 +54,25 @@ BEGIN
   return @Result
 END
 GO
-"))))
+"))))))
 
 
 (defun rv_sql_f_insert_separator ()
   (interactive)
-  (insert "
+  (if (rv_sql_f_is_prc_mode)
+      (progn
+        (insert "
 /* ********************************************************************
    -
    ******************************************************************** */
-"))
+"))))
 
 
 (defun rv_sql_f_insert_trace ()
   (interactive)
-  (insert "print \"\""))
+  (if (rv_sql_f_is_prc_mode)
+      (progn
+        (insert "print \"\""))))
 
 
 

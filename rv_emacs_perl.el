@@ -1,14 +1,38 @@
 (load "perl-mode")
 
+(defun rv_perl_f_is_perl_mode ()
+  (string-match "^\\(pl\\|pm\\)" (rv_language_f_buffer_ext)))
+
+
+(defun rv_perl_f_normalize_space_between_blocks ()
+  (interactive)
+  (save-excursion
+    (if (rv_perl_f_is_perl_mode)
+        (progn
+
+          ;; m_RegisterParam | m_RegisterReport | m_RegisterEnumClass | m_RegisterRuleFamily | m_RegisterProfile | m_RegisterGlobalDbParam
+          (goto-char 1)
+          (while (re-search-forward " *&&\n+\\( *( *$[a-zA-Z0-9_]+->\\(m_Register[a-zA-Z]+\\)\\)" (point-max) t)
+            (replace-match " &&\n\n\n\\1"))
+
+
+          ;; after function / method end
+          (goto-char 1)
+          (while (re-search-forward "\\(\n}[;]?\\)\n+\\(#\\)" (point-max) t)
+            (replace-match "\\1\n\n\n\n\\2"))))))
+
+
 
 (defun rv_perl_f_insert_header_method ()
   (interactive)
-  (let ((ProcName (read-string "ProcName = ")))
-    (let ((Package "")
-          (End 0)
-          (Begin 0)
-          (Body "")
-          (Intro (concat "
+  (if (rv_perl_f_is_perl_mode)
+      (progn
+        (let ((FuncName (read-string "FuncName = ")))
+          (let ((Package "")
+                (End 0)
+                (Begin 0)
+                (Body "")
+                (Intro (concat "
 # ********************************************************************
 #  FUNCTION DESCRIPTION :
 #  -
@@ -18,34 +42,33 @@
 #  -
 #  HISTORY :
 #  - Creation          : "
-                         (current-time-string)
-                         " - "
-                         (user-full-name)
-                         "
+                               (rv_language_f_current_time_string)
+                               " - "
+                               (rv_language_f_current_user_name)
+                               "
 #  - Last modification : "
-                         (current-time-string)
-                         " - "
-                         (user-full-name)
-                         "
+                               (rv_language_f_current_time_string)
+                               " - "
+                               (rv_language_f_current_user_name)
+                               "
 # ********************************************************************
 ")))
-      (save-excursion
-        (if (re-search-backward "^[\t ]*package[\t ]*" (point-min) t)
-            (progn
-              (re-search-forward "package[\t ]*" (point-max) t)
-              (setq Begin (point))
-              (re-search-forward "[A-Za-z0-9_:]+" (point-max) t)
-              (setq End (point))
-              (setq Package (buffer-substring Begin End)))))
+            (save-excursion
+              (if (re-search-backward "^[\t ]*package[\t ]*" (point-min) t)
+                  (progn
+                    (re-search-forward "package[\t ]*" (point-max) t)
+                    (setq Begin (point))
+                    (re-search-forward "[A-Za-z0-9_:]+" (point-max) t)
+                    (setq End (point))
+                    (setq Package (buffer-substring Begin End)))))
 
-      (if (string-equal ProcName "m_New")
-          (setq Body (concat "sub " ProcName "
-{
+            (if (string-equal FuncName "m_New")
+                (setq Body (concat "sub " FuncName " {
   my $ps_class = shift();
   my $lo_This = $ps_class->SUPER::m_New(@_);
   if ($lo_This) {
     ##TODO##
-    f_console_fatal(\"##TODO## Constructor [" ProcName "] not yet implemented !\");
+    f_console_fatal(\"##TODO## Constructor [" FuncName "] not yet implemented !\");
   }
 
   return($lo_This);
@@ -53,8 +76,7 @@
 
 "))
 
-        (setq Body (concat "sub " ProcName "
-{
+              (setq Body (concat "sub " FuncName " {
   my $lb_result;
 
   my $po_This = shift();
@@ -66,34 +88,38 @@
   my $pf_arg_closure = $ph_args{pf_arg_closure};
 
   ##TODO##
-  f_console_fatal(\"##TODO## Method [" ProcName "] not yet implemented !\");
+  f_console_fatal(\"##TODO## Method [" FuncName "] not yet implemented !\");
 
   return($lb_result);
 }
 
 ")))
 
-      (insert (concat Intro Body)))))
+            (insert (concat Intro Body)))))))
 
 
 
 
 (defun rv_perl_f_insert_trace ()
   (interactive)
-  (insert "f_console_debug_pkg(__PACKAGE__, sub {
+  (if (rv_perl_f_is_perl_mode)
+      (progn
+        (insert "f_console_debug_pkg(__PACKAGE__, sub {
   # ##TODO## your debug code here
   f_console_inspect(...);
 });
-"))
+"))))
 
 
 (defun rv_perl_f_insert_separator ()
   (interactive)
-  (insert "
+  (if (rv_perl_f_is_perl_mode)
+      (progn
+        (insert "
 # ********************************************************************
 #  -
 # ********************************************************************
-"))
+"))))
 
 
 
@@ -101,7 +127,9 @@
 
 (defun rv_perl_f_insert_header_class ()
   (interactive)
-  (insert "
+  (if (rv_perl_f_is_perl_mode)
+      (progn
+        (insert "
 # ********************************************************************
 #  - Class T_MyClass : ##TODO##
 # ********************************************************************
@@ -153,9 +181,86 @@ use PM_CCC::T_Utils;
 
 1;
 
-"))
+"))))
 
 
+
+
+(defun rv_perl_f_reformat_code ()
+  (interactive)
+
+  (save-excursion
+    (message (concat "reformatting Perl code in buffer " (buffer-name) "..."))
+
+    ;; sub { ...
+    (goto-char (point-min))
+    (while (re-search-forward "\\<sub[ \t+]\\([a-zA-Z_][a-zA-Z_0-9_]+\\)[ \t\n]*{" (point-max) t)
+      (replace-match "sub \\1 {"))
+
+    ;; <function> (...
+    (goto-char (point-min))
+    (while (re-search-forward "\\<\\(_?\\(f\\|e\\|lf\\)_[a-zA-Z_][a-zA-Z_0-9_]+\\)[ \t]+(" (point-max) t)
+      (replace-match "\\1("))
+
+    ;; if ( ... (
+    ;; elsif ( ... (
+    (goto-char (point-min))
+    (while (re-search-forward "\\<\\(if\\|elsif\\)[ \t\n]*([ \t\n]+(" (point-max) t)
+      (replace-match "\\1 (("))
+
+    ;; ) ... {
+    (goto-char (point-min))
+    (while (re-search-forward ")[ \t\n]+{" (point-max) t)
+      (replace-match ") {"))
+
+    ;; ( ...
+    (goto-char (point-min))
+    (while (re-search-forward "([ \t]+" (point-max) t)
+      (replace-match "("))
+
+    ;; ... )
+    (goto-char (point-min))
+    (while (re-search-forward "[ \t]+)" (point-max) t)
+      (replace-match ")"))
+
+    ;; ; ... }
+    ;; (goto-char (point-min))
+    ;; (while (re-search-forward ";[ \t\n]*}" (point-max) t)
+    ;;   (replace-match ";\n}"))
+
+    ;; } ... )
+    (goto-char (point-min))
+    (while (re-search-forward "}[ \t\n]+)" (point-max) t)
+      (replace-match "})"))
+
+    ;; ...;
+    (goto-char (point-min))
+    (while (re-search-forward "[ \t\n]+;" (point-max) t)
+      (replace-match ";"))
+
+    ;; ;;;;;
+    (goto-char (point-min))
+    (while (re-search-forward ";\\([\t ]*;\\)+[\t ]*$" (point-max) t)
+      (replace-match ";"))
+
+    ;; , ... }
+    ;; (goto-char (point-min))
+    ;; (while (re-search-forward ",[ \t\n]+}" (point-max) t)
+    ;;   (replace-match "}"))
+
+    ;; {...
+    ;; (goto-char (point-min))
+    ;; (while (re-search-forward "{[ \t]*\n[ \t\n]+" (point-max) t)
+    ;; (replace-match "{\n"))
+
+    ;; else ... { ...
+    (goto-char (point-min))
+    (while (re-search-forward "\\<else[ \t\n]+{" (point-max) t)
+      (replace-match "else {"))
+
+    (rv_language_f_indent_region (point-min) (point-max))
+
+    (message (concat "reformatted Perl code in buffer " (buffer-name) " !"))))
 
 
 (defun rv_perl_f_configure_fontify()
@@ -183,7 +288,7 @@ use PM_CCC::T_Utils;
 
     ;; Perl extended keywords
     (add-to-list 'perl-font-lock-keywords-2
-                 '("\\<\\(isnull\\|coalesce\\|convert\\|min\\|max\\|is +null\\|is +not +null\\|null\\|given\\|case\\|when\\|then\\|end\\|not\\|in\\|like\\|pos\\|substr\\|qw\\|q\\|qq\\|qx\\|qr\\|and\\|or\\|xor\\|reverse\\|quotemeta\\|values\\|keys\\|sort\\|bless\\|caller\\|eq\\|ne\\|lt\\|le\\|gt\\|ge\\|cmp\\|ref\\|push\\|pop\\|map\\|grep\\|select\\|from\\|where\\|\\(\\(right\\|left\\|outer\\|inner\\) +\\)*join\\|on\\|order +by\\|group +by\\|having\\|split\\|length\\|scalar\\|my\\|local\\|each\\|shift\\|unshift\\|our\\|delete\\|undef\\|defined\\|exists\\|chomp\\|chop\\|print\\|printf\\|sprintf\\|printflush\\|open\\|close\\|flush\\|STDERR\\|STDOUT\\|warn\\|die\\)\\>" . font-lock-keyword-face))
+                 '("\\<\\(between\\|isnull\\|coalesce\\|convert\\|min\\|max\\|avg\\|sum\\|count\\|is +null\\|is +not +null\\|null\\|given\\|case\\|when\\|then\\|end\\|not\\|in\\|like\\|pos\\|substr\\|qw\\|q\\|qq\\|qx\\|qr\\|and\\|or\\|xor\\|reverse\\|quotemeta\\|values\\|keys\\|sort\\|bless\\|caller\\|eq\\|ne\\|lt\\|le\\|gt\\|ge\\|cmp\\|ref\\|push\\|pop\\|map\\|grep\\|select\\|from\\|where\\|\\(\\(right\\|left\\|outer\\|inner\\) +\\)*join\\|on\\|order +by\\|group +by\\|having\\|split\\|length\\|scalar\\|my\\|local\\|each\\|shift\\|unshift\\|our\\|delete\\|undef\\|defined\\|exists\\|chomp\\|chop\\|print\\|printf\\|sprintf\\|printflush\\|open\\|close\\|flush\\|STDERR\\|STDOUT\\|warn\\|die\\)\\>" . font-lock-keyword-face))
 
 
     ;; Fields
@@ -266,3 +371,5 @@ use PM_CCC::T_Utils;
 
   (imenu-add-to-menubar "*Perl*")
   (font-lock-mode t))
+
+
