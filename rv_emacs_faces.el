@@ -1,5 +1,6 @@
 ;;; those faces are just declared here - and defined in [rv_emacs_custom]
 
+(defface font-lock-callback-name-face '((t nil)) "JS: callback" :group 'font-lock-faces)
 (defface font-lock-log-error-face '((t nil)) "shell-mode: error" :group 'font-lock-faces)
 (defface font-lock-log-in-out-face '((t nil)) "shell-mode: ==> / <==" :group 'font-lock-faces)
 (defface font-lock-log-separ-face '((t nil)) "shell-mode: separator" :group 'font-lock-faces)
@@ -15,6 +16,7 @@
 (defface font-lock-wiki-italic-face '((t nil)) "wiki: italic" :group 'font-lock-faces)
 (defface font-lock-wiki-macro-face '((t nil)) "wiki: macro" :group 'font-lock-faces)
 
+(defvar font-lock-callback-name-face 'font-lock-callback-name-face "font-lock-callback-name-face")
 (defvar font-lock-log-error-face 'font-lock-log-error-face "font-lock-log-error-face")
 (defvar font-lock-log-in-out-face 'font-lock-log-in-out-face "font-lock-log-in-out-face")
 (defvar font-lock-log-separ-face 'font-lock-log-separ-face "font-lock-log-separ-face")

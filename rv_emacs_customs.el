@@ -57,6 +57,7 @@
    '(flash-paren-face-on ((t nil)))
    '(flash-paren-face-region ((t (:background "yellow"))))
    '(font-lock-builtin-face ((t (:weight bold :foreground "red"))))
+   '(font-lock-callback-name-face ((t (:weight bold :foreground "#33cc33"))))
    '(font-lock-keyword-face ((t (:weight bold :foreground "purple"))))
    '(font-lock-log-error-face ((t (:weight bold :foreground "red"))))
    '(font-lock-log-success-face ((t (:weight bold :foreground "#00b300"))))
@@ -94,7 +95,7 @@
    '(font-lock-wiki-macro-face ((t (:weight bold :foreground "black" :background "cyan"))))
    '(linum ((t (:background "gray90" :foreground "black" :slant italic ))))
    '(mode-line ((t (:background "blue" :foreground "yellow" :weight bold))))
-   '(mode-line-inactive ((t (:background "blue" :foreground "gray50" :weight normal))))
+   '(mode-line-inactive ((t (:background "gray30" :foreground "gray90" :weight normal))))
    '(region ((t (:background "gray80"))))
    '(sh-heredoc ((t (:foreground "blue" :weight normal :background "gray80"))))))
 
@@ -125,7 +126,6 @@
    '(linum ((t (:background "gray10" :foreground "white" :slant italic ))))
    '(mode-line ((t (:background "red" :foreground "white" :weight bold))))
    '(mode-line-inactive ((t (:background "white" :foreground "gray50" :weight normal))))
-   ;; '(region ((t (:background "#edc3c5" :foreground "black"))))
    '(region ((t (:background "cyan" :foreground "blue"))))
    '(sh-heredoc ((t (:foreground "green" :weight normal :background "gray30"))))))
 

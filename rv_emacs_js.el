@@ -319,23 +319,21 @@ class TC_... extends TC_... {
                             ;; special symbols
                             ("\\<\\(this\\|lo_self\\|po_self\\)\\>" (1 font-lock-keyword-face))
 
-
                             ;; numeric constants
                             ("\\(\\([-+][ \t]*\\)?\\<[0-9]+\\(\\.[0-9+]\\)?\\>\\)" (1 font-lock-builtin-face))
 
+                            ;; special case of function variables / callbacks
+                            ("\\<\\([lgcpa][f]_[A-Za-z][A-Za-z0-9_]*\\)\\>" (1 font-lock-callback-name-face))
 
                             ;; method / function calls
                             ("\\.?\\<\\([A-Za-z_][A-Za-z0-9_]*\\)[\t \n\r]*(" (1 font-lock-function-name-face))
-
 
                             ;; name: value
                             ("\\<\\([A-Za-z0-9_]+\\)\\>[ \t]*:" (1 font-lock-builtin-face))
                             ("\\.\\<\\([A-Za-z0-9_]+\\)\\>" (1 font-lock-builtin-face))
 
-
-                            ;; variable compliant with our naming conventions
-                            ("\\<\\([lgcpa][abehsifnorx]_[A-Za-z][A-Za-z0-9_]*\\)\\>" (1 font-lock-variable-name-face))
-
+                            ;; variable compliant with our naming conventions - except functions
+                            ("\\<\\([lgcpa][abehsinorx]_[A-Za-z][A-Za-z0-9_]*\\)\\>" (1 font-lock-variable-name-face))
 
                             ;; function / method name compliant with our naming conventions
                             ("\\<\\(_?[fm]_[A-Za-z][A-Za-z0-9_]*\\)\\>" (1 font-lock-function-name-face))))

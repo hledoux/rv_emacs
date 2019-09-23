@@ -1,6 +1,6 @@
 
 (defun rv_spd_f_is_spd_mode ()
-  (string-match "^\\(spd\\)$" (rv_language_f_buffer_ext)))
+  (string-match "^\\(spd\\|tpl\\)" (rv_language_f_buffer_ext)))
 
 
 (defun rv_spd_f_normalize_space_between_blocks ()

@@ -10,7 +10,7 @@
     (if (rv_perl_f_is_perl_mode)
         (progn
 
-          ;; m_RegisterParam | m_RegisterReport | m_RegisterEnumClass | m_RegisterRuleFamily | m_RegisterProfile | m_RegisterGlobalDbParam
+          ;; m_RegisterParam | m_RegisterReport | m_RegisterEnumClass | m_RegisterRuleFamily | m_RegisterProfile | m_RegisterDbParam
           (goto-char 1)
           (while (re-search-forward " *&&\n+\\( *( *$[a-zA-Z0-9_]+->\\(m_Register[a-zA-Z]+\\)\\)" (point-max) t)
             (replace-match " &&\n\n\n\\1"))

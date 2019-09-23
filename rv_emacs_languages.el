@@ -33,7 +33,7 @@
 (defun rv_language_f_buffer_ext ()
   (interactive)
   (setq ls_buffer_name (buffer-name))
-  (if (string-match "\\.\\([a-zA-Z][a-zA-Z0-9_+]*\\)$" ls_buffer_name)
+  (if (string-match "\\.\\([a-zA-Z][a-zA-Z0-9_+]*\\)\\(\\.~[-a-zA-Z0-9.#~]+\\)?$" ls_buffer_name)
       (downcase (substring ls_buffer_name (match-beginning 1) (match-end 1)))))
 
 
