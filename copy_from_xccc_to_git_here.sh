@@ -7,6 +7,7 @@ git pull
 
 echo "copy from xccc"
 rsync -a -v ~/xccc/res/ccc/emacs/*.el ./
+rsync -a -v --exclude CVS ~/xccc/res/ccc/emacs/extensions/ ./extensions/
 
 
 echo "push to GitHub"

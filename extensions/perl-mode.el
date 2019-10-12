@@ -288,7 +288,7 @@ Variables controlling indentation style:
     regardless of where in the line point is when the TAB command is used.
  perl-tab-to-comment
     Non-nil means that for lines which don't need indenting, TAB will
-    either delete an empty comment, indent an existing comment, move 
+    either delete an empty comment, indent an existing comment, move
     to end-of-line, or if at end-of-line already, create a new comment.
  perl-nochange
     Lines starting with this regular expression are not auto-indented.
@@ -375,14 +375,14 @@ If at end-of-line, and not in a comment or a quote, correct the's indentation."
 	   (and (not			; eliminate comments quickly
 		 (and comment-start-skip
 		      (re-search-forward comment-start-skip insertpos t)) )
-		(or (/= last-command-char ?:)
+		(or (/= last-command-event ?:)
 		    ;; Colon is special only after a label ....
 		    (looking-at "\\s-*\\(\\w\\|\\s_\\)+$"))
-		(let ((pps (parse-partial-sexp 
+		(let ((pps (parse-partial-sexp
 			    (perl-beginning-of-function) insertpos)))
 		  (not (or (nth 3 pps) (nth 4 pps) (nth 5 pps))))))
 	 (progn				; must insert, indent, delete
-	   (insert-char last-command-char 1)
+	   (insert-char last-command-event 1)
 	   (perl-indent-line)
 	   (delete-char -1))))
   (self-insert-command (prefix-numeric-value arg)))
@@ -424,7 +424,7 @@ possible action from the following list:
 	     (> (current-column) (current-indentation)))
 	(insert-tab)
       (let (bof lsexp delta (oldpnt (point)))
-	(beginning-of-line) 
+	(beginning-of-line)
 	(setq lsexp (point))
 	(setq bof (perl-beginning-of-function))
 	(goto-char oldpnt)
@@ -435,11 +435,11 @@ possible action from the following list:
 		 (setq lsexp (or (nth 2 delta) bof))
 	       (= delta 0))		; done if indenting occurred
 	     (let (eol state)
-	       (end-of-line) 
+	       (end-of-line)
 	       (setq eol (point))
 	       (if (= (char-after bof) ?=)
 		   (if (= oldpnt eol)
-		       (message "In a format statement"))     
+		       (message "In a format statement"))
 		 (setq state (parse-partial-sexp lsexp eol))
 		 (if (nth 3 state)
 		     (if (= oldpnt eol)	; already at eol in a string
@@ -466,7 +466,7 @@ possible action from the following list:
 
 (defun perl-indent-line (&optional nochange parse-start)
   "Indent current line as Perl code.
-Return the amount the indentation 
+Return the amount the indentation
 changed by, or (parse-state) if line starts in a quoted string."
   (let ((case-fold-search nil)
 	(pos (- (point-max) (point)))
@@ -597,8 +597,8 @@ Returns (parse-state) if line starts inside a string."
 			    (cond ((looking-at ";?#")
 				   (forward-line 1) t)
 				  ((looking-at "\\(\\w\\|\\s_\\)+:")
-				   (save-excursion 
-				     (end-of-line) 
+				   (save-excursion
+				     (end-of-line)
 				     (setq colon-line-end (point)))
 				   (search-forward ":")))))
 		   ;; The first following code counts
@@ -680,7 +680,7 @@ Returns (parse-state) if line starts inside a string."
       (while (< (point) (marker-position last-mark))
 	(setq delta (perl-indent-line nil (marker-position bof-mark)))
 	(if (numberp delta)		; unquoted start-of-line?
-	    (progn 
+	    (progn
 	      (if (eolp)
 		  (delete-horizontal-space))
 	      (setq lsexp-mark (point-marker))))
