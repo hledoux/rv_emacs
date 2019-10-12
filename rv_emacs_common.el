@@ -50,7 +50,6 @@
           FileName)))))
 
 
-
 (defun rv_common_f_line_number_under_cursor ()
   (interactive)
   (save-excursion
@@ -196,14 +195,6 @@
       (widen))))
 
 
-
-
-(defun rv_common_f_ediff_with_last_commit ()
-  "compare the content of the current buffer with its last committed version"
-  (interactive)
-  (save-excursion
-    (vc-revision-other-window "")
-    (ediff-buffers (ediff-other-buffer "") (ediff-other-buffer (current-buffer)))))
 
 
 (defun rv_common_f_find_file_hook ()

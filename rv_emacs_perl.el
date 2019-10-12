@@ -19,7 +19,37 @@
           ;; after function / method end
           (goto-char 1)
           (while (re-search-forward "\\(\n}[;]?\\)\n+\\(#\\)" (point-max) t)
-            (replace-match "\\1\n\n\n\n\\2"))))))
+            (replace-match "\\1\n\n\n\n\\2"))
+
+
+          ;; sub gnagnagna { ... }
+          (goto-char 1)
+          (while (re-search-forward "\nsub[ \t]+\\([_a-zA-Z][_a-zA-Z0-9]*\\)[ \n\t]+{" (point-max) t)
+            (replace-match "\nsub \\1 {"))
+
+
+          ;; if / unless / else / elsif / foreach / while
+          (goto-char 1)
+          (while (re-search-forward "\\(\n[ \t]+\\)\\(if\\|unless\\|elsif\\|foreach\\|while\\)[ \t]*([ \t]*\\([^\n]+?\\)[ \t]*)[ \n\t]*{\n" (point-max) t)
+            (replace-match "\\1\\2 (\\3) {\n"))
+
+
+          ;; else { ... }
+          (goto-char 1)
+          (while (re-search-forward "\\(\n[ \t]+\\)\\(else\\)[ \n\t]*{\n" (point-max) t)
+            (replace-match "\\1\\2 {\n"))
+
+
+          ;; spaces between parenthesis
+          (goto-char 1)
+          (while (re-search-forward "([\t ]+(" (point-max) t)
+            (replace-match "(("))
+
+
+          ;; spaces between parenthesis
+          (goto-char 1)
+          (while (re-search-forward ")[\t ]+)" (point-max) t)
+            (replace-match "))"))))))
 
 
 

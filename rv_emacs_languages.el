@@ -122,6 +122,13 @@
 
 
 
+(defun rv_language_f_re_indent_buffer_save_and_close ()
+  (interactive)
+  (rv_language_f_re_indent_buffer)
+  (rv_common_f_clean_save)
+  (rv_common_f_kill_current_buffer))
+
+
 (defun rv_language_f_source_grep ()
   (interactive)
   (save-excursion

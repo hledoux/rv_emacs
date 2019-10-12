@@ -94,6 +94,7 @@
 (load "rv_emacs_common")
 (load "rv_emacs_macros")
 (load "rv_emacs_languages")
+(load "rv_emacs_vc")
 
 
 ;;; mode hooks

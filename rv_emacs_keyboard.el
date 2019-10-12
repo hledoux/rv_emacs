@@ -6,7 +6,8 @@
 (global-set-key [(control a)] 'mark-whole-buffer) ; C-a = usual short-cut
 (global-set-key [(control c)] 'copy-region-as-kill) ; C-c = usual short-cut
 (global-set-key [(control end)] 'rv_common_f_move_buffer_end) ; C-end
-(global-set-key [(control f12)] 'rv_common_f_ediff_with_last_commit) ; C-F12 = compare with last committed revision
+(global-set-key [(control f12)] 'rv_vc_f_ediff_with_last_commit) ; C-F12 = compare with last committed revision
+(global-set-key [(control f11)] 'rv_vc_f_ediff_with_last_release_tag) ; C-F1a = compare with latest release
 (global-set-key [(control home)] 'rv_common_f_move_buffer_beginning) ; C-home
 (global-set-key [(control meta down)] 'rv_common_f_move_scroll_down) ; C-M-down = scroll one line down
 (global-set-key [(control meta l)] 'rv_common_f_toggle_wrap_lines) ; C-M-l = wrap lines on | off
@@ -35,6 +36,7 @@
 (global-set-key [(meta down)] 'rv_common_f_move_scroll_other_up)
 (global-set-key [(meta end)] 'end-of-buffer-other-window)
 (global-set-key [(meta f)] 'rv_language_f_insert_header_method) ;; M-f = create a brand new function
+(global-set-key [(meta f11)] 'rv_language_f_re_indent_buffer_save_and_close)
 (global-set-key [(meta g)] 'rv_language_f_source_grep)
 (global-set-key [(meta home)] 'beginning-of-buffer-other-window)
 (global-set-key [(meta l)] 'rv_language_f_insert_separator)
@@ -77,7 +79,6 @@
 (global-set-key [kp-delete] 'delete-char) ; delete
 (global-set-key [next] 'scroll-up) ; PgUp
 (global-set-key [prior] 'scroll-down) ; PgDn
-
 ;; (global-set-key [(meta c)] 'rv_language_f_insert_header_class)
 ;; (global-set-key [f11] 'rv_common_f_load_file_under_cursor_indent_save_close)
 ;; (global-set-key [f11] 'rv_common_f_next_error_indent_save_file)

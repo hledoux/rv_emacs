@@ -10,7 +10,19 @@
         (progn
           (goto-char 1)
           (while (re-search-forward " *\\([,;]\\)\n+\\( *\\<\\(DDL_Table\\>\\|SPD_Procedure\\|SPD_QueryDeclare\\|SPD_QueryEval\\|SPD_QueryDescribe\\|SPD_Assert\\)\\)" (point-max) t)
-            (replace-match "\\1\n\n\n\n\n\\2"))))))
+            (replace-match "\\1\n\n\n\n\n\\2"))
+
+
+          ;; spaces after parenthesis
+          (goto-char 1)
+          (while (re-search-forward "([\t ]+" (point-max) t)
+            (replace-match "("))
+
+
+          ;; spaces between parenthesis
+          (goto-char 1)
+          (while (re-search-forward ")[\t ]+)" (point-max) t)
+            (replace-match "))"))))))
 
 
 
