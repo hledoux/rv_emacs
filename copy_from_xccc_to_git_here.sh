@@ -10,4 +10,5 @@ rsync -a -v ~/xccc/res/ccc/emacs/*.el ./
 
 
 echo "push to GitHub"
+git add *.el
 git commit -a -m- && git push
